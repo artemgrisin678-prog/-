@@ -147,66 +147,69 @@ h1, h2, p { margin: 0; }
 .drawer__contacts a:last-child { font-weight: 500; color: var(--text-2); }
 
 /* ============ БЛОК 1 — ПЕРВЫЙ ЭКРАН ============ */
+/* слева ИБП на чистой подложке, справа текст; ничего не накладывается на фон */
 .hero-wrap { padding: 16px 24px 0; }
 
-/* тёмный блок не красит элементы вручную: токены переопределены внутри */
 .hero {
   --text: #F2F1EC; --text-2: #D9D8D2; --muted: #A7A9AE;
   --line: rgba(242, 241, 236, .16);
   position: relative; overflow: hidden; isolation: isolate;
-  display: flex; flex-direction: column;
+  display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+  grid-template-rows: 1fr auto; column-gap: 40px;
   max-width: 1640px; margin: 0 auto;
   min-height: clamp(700px, calc(100svh - var(--header-h) - 32px), 860px);
-  padding: 44px 48px 0;
+  padding: 0 56px;
   border-radius: var(--r-hero);
   color: var(--text);
   background: #0B0D11;
 }
 
-/* дом: справа на всю высоту, левая кромка растворяется в тёмном */
-.hero__house { position: absolute; top: 0; right: 0; bottom: 0; width: 56%; z-index: -3; }
-.hero__house img {
-  width: 100%; height: 100%; object-fit: cover; object-position: 58% 50%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,.55) 16%, #000 42%);
-          mask-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,.55) 16%, #000 42%);
+/* фон: дом на весь экран; тёмная вуаль гуще справа, где лежит текст */
+.hero__bg { position: absolute; inset: 0; z-index: -1; }
+.hero__bg img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 60% 45%;
   transition: filter 1s ease;
 }
-.hero__dim {
-  position: absolute; inset: 0; background: #04060A; opacity: 0;
-  transition: opacity 1s ease; pointer-events: none;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%);
-          mask-image: linear-gradient(90deg, transparent 0, #000 40%);
+.hero__shade {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(8, 10, 14, .5) 0%, rgba(8, 10, 14, .62) 38%, rgba(8, 10, 14, .86) 62%, rgba(8, 10, 14, .92) 100%),
+    linear-gradient(0deg, rgba(8, 10, 14, .85) 0%, rgba(8, 10, 14, 0) 26%);
+  transition: background-color 1s ease;
 }
-/* затемнение снизу — под строку «Нам доверяют» */
-.hero::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 38%;
-  background: linear-gradient(to top, rgba(8, 10, 14, .92), rgba(8, 10, 14, 0));
-  z-index: -1; pointer-events: none;
-}
+.hero.is-blackout .hero__bg img { filter: brightness(.4) saturate(.6); }
 
+/* левая сцена: подсветка и система ИБП по центру */
+.hero__visual { position: relative; display: grid; place-items: center; padding: 48px 0 32px; }
 .hero__glow {
-  position: absolute; z-index: -2; left: 40%; bottom: 3%;
-  width: 720px; height: 720px; max-width: 70vw;
-  background: radial-gradient(circle, rgba(43, 107, 255, .42) 0%, rgba(43, 107, 255, 0) 62%);
-  opacity: .45; transition: opacity 1.2s ease; pointer-events: none;
+  position: absolute; z-index: 0; left: 50%; top: 50%; translate: -50% -50%;
+  width: min(120%, 720px); aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(43, 107, 255, .38) 0%, rgba(43, 107, 255, 0) 62%);
+  opacity: .5; transition: opacity 1.2s ease; pointer-events: none;
 }
 .hero.is-backup .hero__glow { opacity: 1; }
-.hero.is-blackout .hero__glow { opacity: .15; }
-
+.hero.is-blackout .hero__glow { opacity: .08; }
 .hero__ibp {
-  position: absolute; z-index: -1;
-  left: 46%; bottom: 128px;
-  width: clamp(300px, 29vw, 470px); height: auto;
-  filter: drop-shadow(0 38px 42px rgba(0, 0, 0, .6));
+  position: relative; z-index: 1;
+  width: min(100%, 540px); height: auto;
+  filter: drop-shadow(0 40px 40px rgba(0, 0, 0, .55));
+  transition: filter 1s ease, opacity 1s ease;
+}
+.hero.is-blackout .hero__ibp { filter: drop-shadow(0 40px 40px rgba(0, 0, 0, .55)) brightness(.35) saturate(.6); }
+/* пол: тонкая линия-тень под системой */
+.hero__visual::after {
+  content: ""; position: absolute; z-index: 0; left: 50%; bottom: 20px; translate: -50% 0;
+  width: min(80%, 460px); height: 26px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, .6), rgba(0, 0, 0, 0) 70%);
 }
 
 /* плашка-статус: объясняет, что происходит при отключении */
 .hero__status {
-  position: absolute; z-index: 2; top: 32px; right: 32px;
+  position: absolute; z-index: 2; top: 36px; left: 0;
   display: flex; align-items: center; gap: 12px;
-  min-width: 270px; padding: 14px 20px 14px 16px;
-  background: rgba(255, 255, 255, .94); color: #14171C;
-  border-radius: 18px; box-shadow: 0 16px 40px rgba(0, 0, 0, .28);
+  min-width: 250px; padding: 14px 20px 14px 16px;
+  background: rgba(255, 255, 255, .95); color: #14171C;
+  border-radius: 18px; box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
 }
 .hero__status b { display: block; font-size: 15.5px; line-height: 1.25; }
 .hero__status span:not(.hero__status-dot) { display: block; font-size: 13px; color: #5B5F66; }
@@ -221,18 +224,18 @@ h1, h2, p { margin: 0; }
 .hero.is-blackout .hero__status-dot { background: #E5484D; }
 .hero.is-backup .hero__status-dot { background: var(--signal); }
 
-.hero__badges { display: flex; flex-wrap: wrap; gap: 10px; max-width: 760px; }
+/* правая колонка: текст */
+.hero__content { display: flex; flex-direction: column; justify-content: center; padding: 48px 0 40px; max-width: 700px; }
+
+.hero__badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
 .hero__badges li {
-  padding: 10px 18px; border-radius: 999px; font-size: 14px; color: var(--text-2);
-  background: rgba(20, 23, 28, .55); border: 1px solid var(--line);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  padding: 9px 16px; border-radius: 999px; font-size: 13.5px; color: var(--text-2);
+  background: rgba(255, 255, 255, .04); border: 1px solid var(--line);
 }
 .hero__badges b { color: var(--accent); font-weight: 700; }
 
-.hero__content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 28px 0 32px; max-width: 700px; }
-
 .hero__title {
-  font-size: clamp(34px, 3.5vw, 54px); line-height: 1.02; letter-spacing: -.03em; font-weight: 700;
+  font-size: clamp(34px, 3.6vw, 56px); line-height: 1.02; letter-spacing: -.03em; font-weight: 700;
 }
 .h1-line { display: block; }
 .h1-line--mark span {
@@ -243,10 +246,10 @@ h1, h2, p { margin: 0; }
 
 .hero__lead { margin-top: 22px; max-width: 520px; font-size: 18px; line-height: 1.45; color: var(--text-2); }
 
-.usp { counter-reset: usp; margin-top: 24px; max-width: 540px; }
+.usp { counter-reset: usp; margin-top: 26px; max-width: 560px; }
 .usp li {
   position: relative; padding: 13px 0 13px 46px; font-size: 15.5px; line-height: 1.4; color: var(--text);
-  border-top: 1px solid var(--line); transition: transform .25s, color .25s;
+  border-top: 1px solid var(--line); transition: transform .25s;
 }
 .usp li:last-child { border-bottom: 1px solid var(--line); }
 .usp li::before {
@@ -258,7 +261,7 @@ h1, h2, p { margin: 0; }
 }
 .usp li:hover { transform: translateX(6px); }
 
-.hero__cta { margin-top: 26px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.hero__cta { margin-top: 28px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
 .hero__offer { max-width: 250px; font-size: 14px; line-height: 1.35; color: var(--text-2); }
 .hero__offer b { color: var(--accent); font-weight: 700; }
 
@@ -280,11 +283,10 @@ h1, h2, p { margin: 0; }
 
 /* строка «Нам доверяют» */
 .trust {
+  grid-column: 1 / -1;
   display: flex; align-items: center; gap: 44px;
-  margin: 0 -48px; padding: 22px 48px;
+  margin: 0 -56px; padding: 22px 56px;
   border-top: 1px solid var(--line);
-  background: rgba(8, 10, 14, .5);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
 }
 .trust__label { font-size: 13px; letter-spacing: .02em; color: var(--muted); }
 .trust__item { display: flex; align-items: center; gap: 14px; }
@@ -335,37 +337,25 @@ h1, h2, p { margin: 0; }
 @media (max-width: 1280px) {
   .nav { gap: 22px; }
   .header__inner { gap: 22px; }
-  .hero__ibp { left: 48%; }
 }
 
 @media (max-width: 1180px) {
   .nav { display: none; }
   .contact { margin-left: auto; }
   .burger { display: flex; }
-  .hero__house { width: 62%; }
-  .hero__badges { max-width: 620px; }
-  .hero__status { min-width: 0; }
 }
 
-/* планшет и телефон: дом сверху, текст ниже */
+/* планшет и телефон: система сверху, текст ниже */
 @media (max-width: 900px) {
-  .hero { padding: 0 24px 0; min-height: 0; }
-  .hero__house { right: 0; left: 0; bottom: auto; width: auto; height: 400px; }
-  .hero__house img {
-    object-position: 60% 40%;
-    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
-            mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
-  }
-  .hero__dim { height: 400px; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
-  .hero::after { display: none; }
-  .hero__glow { left: -10%; top: 120px; bottom: auto; width: 420px; height: 420px; }
-  .hero__ibp { left: 24px; bottom: auto; top: 150px; width: 200px; }
-  .hero__status { top: 16px; right: 16px; min-width: 0; padding: 10px 14px 10px 12px; border-radius: 14px; }
+  .hero { display: flex; flex-direction: column; min-height: 0; padding: 0 24px; }
+  .hero__visual { padding: 84px 0 12px; }
+  .hero__ibp { width: min(70%, 340px); }
+  .hero__status { top: 20px; left: 0; min-width: 0; padding: 10px 14px 10px 12px; border-radius: 14px; }
   .hero__status b { font-size: 13.5px; }
   .hero__status span:not(.hero__status-dot) { font-size: 12px; }
-  .hero__content { order: 1; margin-top: 350px; padding: 0 0 24px; max-width: none; }
-  .hero__badges { order: 2; padding-bottom: 28px; }
-  .trust { order: 3; margin: 0 -24px; padding: 18px 24px; gap: 28px; flex-wrap: wrap; }
+  .hero__content { padding: 12px 0 28px; max-width: none; }
+  .hero__badges { margin-bottom: 24px; }
+  .trust { margin: 0 -24px; padding: 18px 24px; gap: 28px; flex-wrap: wrap; }
   .trust__label { width: 100%; }
   .hero__title { font-size: clamp(32px, 6.4vw, 48px); }
 }
@@ -382,9 +372,7 @@ h1, h2, p { margin: 0; }
   .logo img { height: 32px; }
   .hero-wrap { padding: 8px 8px 0; }
   .hero { padding: 0 16px; border-radius: 24px; }
-  .hero__house, .hero__dim { height: 340px; }
-  .hero__ibp { width: 168px; top: 112px; left: 12px; }
-  .hero__content { margin-top: 300px; }
+  .hero__ibp { width: min(78%, 300px); }
   .hero__title { font-size: 32px; }
   .hero__lead { font-size: 16.5px; }
   .hero__cta { flex-direction: column; align-items: stretch; gap: 14px; }

@@ -88,28 +88,29 @@
 <section class="hero-wrap" id="hero">
   <div class="hero" data-hero>
 
-    <div class="hero__house" aria-hidden="true">
+    <div class="hero__bg" aria-hidden="true">
       <img src="assets/house.jpg" alt="" width="1200" height="750" fetchpriority="high">
-      <i class="hero__dim"></i>
+      <i class="hero__shade"></i>
     </div>
 
-    <div class="hero__glow" aria-hidden="true"></div>
-    <img class="hero__ibp" src="assets/ibp.png" alt="Система бесперебойного питания: инверторы, аккумуляторные модули и щит" width="820" height="785" fetchpriority="high">
-
-    <!-- «живая» плашка: показывает, что делает система при отключении сети.
-         TODO: время переключения на батарею не называем, пока заказчик не подтвердит -->
-    <div class="hero__status" data-status-card role="status" aria-live="polite">
-      <span class="hero__status-dot" aria-hidden="true"></span>
-      <div><b data-status-title>Сеть 220 В в норме</b><span data-status-text>Дом питается от сети</span></div>
+    <div class="hero__visual">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <img class="hero__ibp" src="assets/ibp.png" alt="Система бесперебойного питания: инверторы, аккумуляторные модули и щит" width="820" height="785" fetchpriority="high">
+      <!-- «живая» плашка: показывает, что делает система при отключении сети.
+           TODO: время переключения на батарею не называем, пока заказчик не подтвердит -->
+      <div class="hero__status" data-status-card role="status" aria-live="polite">
+        <span class="hero__status-dot" aria-hidden="true"></span>
+        <div><b data-status-title>Сеть 220 В в норме</b><span data-status-text>Дом питается от сети</span></div>
+      </div>
     </div>
-
-    <ul class="hero__badges" aria-label="Коротко о нас">
-      <li><b>с 2013 года</b> в инженерных сетях</li>
-      <li><b>5000+</b> объектов построено</li>
-      <li><b>Свой</b> отдел проектирования</li>
-    </ul>
 
     <div class="hero__content">
+      <ul class="hero__badges" aria-label="Коротко о нас">
+        <li><b>с 2013 года</b> в инженерных сетях</li>
+        <li><b>5000+</b> объектов построено</li>
+        <li><b>Свой</b> отдел проектирования</li>
+      </ul>
+
       <!-- TODO: «свет не гаснет» — подтвердить у заказчика время переключения на батарею для поставляемых моделей -->
       <h1 class="hero__title">
         <span class="h1-line">Свет в доме не гаснет:</span>

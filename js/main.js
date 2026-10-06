@@ -140,12 +140,7 @@
     var text = $('[data-status-text]', card);
     var set = function (t, s) { title.textContent = t; text.textContent = s; };
     var backup = function () { hero.classList.remove('is-blackout'); hero.classList.add('is-backup'); set('Дом на резерве', 'Свет и розетки работают'); };
-    var dim = $('.hero__house img', hero);
-    var applyDim = function (on) {
-      var f = on ? 'brightness(.3) saturate(.55)' : 'none';
-      if (dim) dim.style.filter = f;
-      var d = $('.hero__dim', hero); if (d) d.style.opacity = on ? '.35' : '0';
-    };
+    var applyDim = function () {}; // затемнение дома делает класс is-blackout в стилях
     if (reduced) {
       backup();
     } else {
