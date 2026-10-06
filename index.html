@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ИБП для дома под ключ — Энергосистемы</title>
+  <meta name="description" content="Бесперебойное питание частного дома: расчёт нагрузки, проект, монтаж и пусконаладка ИБП. Свой отдел проектирования, Москва и область.">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=1">
+</head>
+<body>
+
+<!-- ============ ШАПКА ============ -->
+<header class="header" data-header>
+  <div class="header__inner">
+    <a class="logo" href="#top" aria-label="Энергосистемы — на главную">
+      <img src="assets/logo-dark.png" alt="Энергосистемы — эксперты в сфере энергетики" width="258" height="58">
+    </a>
+
+    <!-- пункты ведут к блокам, которые появятся по одному; пока якоря без цели -->
+    <nav class="nav" aria-label="Основное меню">
+      <a href="#solutions">Решения</a>
+      <a href="#process">Как работаем</a>
+      <a href="#prices">Цены</a>
+      <a href="#projects">Объекты</a>
+      <a href="#guarantees">Гарантии</a>
+      <a href="#contacts">Контакты</a>
+      <div class="nav__more" data-more>
+        <button class="nav__more-btn" type="button" aria-expanded="false" aria-controls="more-menu" data-more-btn>
+          Ещё
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="nav__more-list" id="more-menu" hidden>
+          <a href="#service">Сервис и обслуживание</a>
+          <a href="#faq">Частые вопросы</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="contact">
+      <!-- TODO: реальные ссылки на Max и Telegram -->
+      <a class="msg msg--max" href="https://max.ru/" aria-label="Написать в Max" target="_blank" rel="noopener">
+        <svg viewBox="0 0 100 100" width="16" height="16" fill="#fff" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M50.76 0.26C78.29 0.26 99.89 22.6 99.89 50.15C99.89 77.7 77.61 99.49 51.02 99.49C41.59 99.49 37.01 98.16 29.65 92.95C29.14 92.59 28.45 92.68 28.02 93.14C22.36 99.18 7.85 103.43 7.19 95.18C7.19 80.79 0 71.45 0 49.88C0 21.55 23.22 0.26 50.76 0.26ZM51.53 24.81C38.46 24.13 28.26 33.2 26.01 47.38C24.15 59.13 27.45 73.45 30.28 74.18C31.48 74.48 34.36 72.28 36.46 70.3C36.85 69.93 37.45 69.86 37.91 70.15C41.18 72.15 44.88 73.65 48.96 73.86C62.37 74.56 74.26 64.06 74.96 50.65C75.66 37.23 64.94 25.5 51.53 24.8V24.81Z"/></svg>
+      </a>
+      <a class="msg msg--tg" href="https://t.me/" aria-label="Написать в Telegram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10l-4 4 6 6 4-16-18 7 4 2 2 6 3-4"/></svg>
+      </a>
+      <div class="phone">
+        <a class="phone__num" href="tel:+74951780118">+7 (495) 178-01-18</a>
+        <a class="phone__num" href="tel:+79251640560">+7 (925) 164-05-60</a>
+        <span class="phone__note" data-status-box><i class="phone__dot" aria-hidden="true"></i><span data-status>На связи — ответим за 30 минут</span></span>
+      </div>
+    </div>
+
+    <button class="btn-cta" type="button" data-callback-open>Заказать звонок</button>
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="drawer" data-burger>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- меню на узких экранах: все разделы целиком -->
+  <div class="drawer" id="drawer" hidden data-drawer>
+    <nav aria-label="Меню для телефона">
+      <a href="#solutions">Решения</a>
+      <a href="#process">Как работаем</a>
+      <a href="#prices">Цены</a>
+      <a href="#projects">Объекты</a>
+      <a href="#service">Сервис и обслуживание</a>
+      <a href="#guarantees">Гарантии</a>
+      <a href="#faq">Частые вопросы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="drawer__contacts">
+      <a href="tel:+74951780118">+7 (495) 178-01-18</a>
+      <a href="tel:+79251640560">+7 (925) 164-05-60</a>
+      <a href="mailto:sales@e-systems.su">sales@e-systems.su</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ БЛОК 1 — ПЕРВЫЙ ЭКРАН ============ -->
+<section class="hero-wrap" id="hero">
+  <div class="hero" data-hero>
+
+    <div class="hero__house" aria-hidden="true">
+      <img src="assets/house.jpg" alt="" width="1200" height="750" fetchpriority="high">
+      <i class="hero__dim"></i>
+    </div>
+
+    <div class="hero__glow" aria-hidden="true"></div>
+    <img class="hero__ibp" src="assets/ibp.png" alt="Система бесперебойного питания: инверторы, аккумуляторные модули и щит" width="820" height="785" fetchpriority="high">
+
+    <!-- «живая» плашка: показывает, что делает система при отключении сети.
+         TODO: время переключения на батарею не называем, пока заказчик не подтвердит -->
+    <div class="hero__status" data-status-card role="status" aria-live="polite">
+      <span class="hero__status-dot" aria-hidden="true"></span>
+      <div><b data-status-title>Сеть 220 В в норме</b><span data-status-text>Дом питается от сети</span></div>
+    </div>
+
+    <ul class="hero__badges" aria-label="Коротко о нас">
+      <li><b>с 2013 года</b> в инженерных сетях</li>
+      <li><b>5000+</b> объектов построено</li>
+      <li><b>Свой</b> отдел проектирования</li>
+    </ul>
+
+    <div class="hero__content">
+      <!-- TODO: «свет не гаснет» — подтвердить у заказчика время переключения на батарею для поставляемых моделей -->
+      <h1 class="hero__title">
+        <span class="h1-line">Свет в доме не гаснет:</span>
+        <span class="h1-line h1-line--mark"><span>ИБП под ключ</span></span>
+        <span class="h1-line">от расчёта до запуска</span>
+      </h1>
+
+      <p class="hero__lead">Подберём мощность и ёмкость батарей под ваши потребители. Москва и область.</p>
+
+      <!-- TODO: подтвердить у заказчика, что состав «проект, поставка, монтаж, пусконаладка» относится к ИБП -->
+      <ol class="usp">
+        <li>Свой отдел проектирования: нагрузку и схему считаем сами</li>
+        <li>Один договор: проект, поставка, монтаж, пусконаладка</li>
+        <li>Цена фиксируется в договоре — без доплат по ходу</li>
+      </ol>
+
+      <div class="hero__cta">
+        <button class="btn-pill" type="button" data-callback-open data-callback-title="Рассчитать стоимость ИБП" data-callback-text="Пришлите список потребителей — посчитаем без обязательств">
+          <span>Рассчитать стоимость</span>
+          <span class="btn-pill__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </span>
+        </button>
+        <!-- TODO: подтвердить «30 минут» и «выезд в течение суток» для ИБП (формулы взяты с e-systems.su) -->
+        <p class="hero__offer"><b>Расчёт за 30 минут.</b> Выезд инженера — в течение суток</p>
+      </div>
+    </div>
+
+    <div class="trust">
+      <div class="trust__label">Нам доверяют:</div>
+      <!-- TODO: подписи «что делали» — подтвердить у заказчика; сейчас только названия -->
+      <div class="trust__item"><span class="trust__logo"><img src="assets/partners/rosseti.png" alt="" width="241" height="240"></span><b>Россети</b></div>
+      <div class="trust__item"><span class="trust__logo"><img src="assets/partners/gazprom.png" alt="" width="144" height="240"></span><b>Газпром</b></div>
+      <div class="trust__item"><span class="trust__logo"><img src="assets/partners/rzd.png" alt="" width="541" height="240"></span><b>РЖД</b></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- липкая кнопка на телефоне -->
+<div class="sticky-cta" data-sticky>
+  <button class="btn-pill btn-pill--sm" type="button" data-callback-open data-callback-title="Рассчитать стоимость ИБП" data-callback-text="Пришлите список потребителей — посчитаем без обязательств">
+    <span>Рассчитать стоимость</span>
+  </button>
+</div>
+
+<!-- ============ ОКНО «ЗАКАЗАТЬ ЗВОНОК» (одно на все кнопки) ============ -->
+<dialog class="modal" data-modal aria-labelledby="modal-title">
+  <form class="modal__form" method="dialog" novalidate data-modal-form>
+    <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <h2 class="modal__title" id="modal-title" data-modal-title>Заказать звонок</h2>
+    <p class="modal__text" data-modal-text>Перезвоним в течение 30 минут в рабочее время</p>
+    <label class="field"><span>Имя</span><input type="text" name="name" autocomplete="name" required></label>
+    <label class="field"><span>Телефон</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" required data-phone></label>
+    <label class="check"><input type="checkbox" name="consent" required>
+      <span>Согласен на <a href="https://e-systems.su/personal-data-consent" target="_blank" rel="noopener">обработку персональных данных</a></span></label>
+    <label class="check"><input type="checkbox" name="policy" required>
+      <span>Ознакомлен с <a href="https://e-systems.su/privacy" target="_blank" rel="noopener">политикой конфиденциальности</a></span></label>
+    <p class="modal__error" data-modal-error hidden></p>
+    <!-- TODO: подключить отправку на POST /api/lead (поля и формат — раздел 11 мастер-промта) -->
+    <button class="btn-pill btn-pill--full" type="button" data-modal-submit><span>Отправить</span></button>
+  </form>
+</dialog>
+
+<script src="js/main.js?v=1"></script>
+</body>
+</html>
