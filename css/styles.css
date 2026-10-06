@@ -179,40 +179,32 @@ h1, h2, p { margin: 0; }
 }
 .hero.is-blackout .hero__bg img { filter: brightness(.4) saturate(.6); }
 
-/* левая сцена: подсветка и система ИБП по центру */
-.hero__visual { position: relative; display: grid; place-items: center start; padding: 48px 0 32px; }
-.hero__glow {
-  position: absolute; z-index: 0; left: 0; top: 50%; translate: -15% -50%;
-  width: min(100%, 640px); aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(43, 107, 255, .38) 0%, rgba(43, 107, 255, 0) 62%);
-  opacity: .5; transition: opacity 1.2s ease; pointer-events: none;
+/* левая сцена: фото ИБП на тёмной стене идёт от левого края и растворяется в доме справа и внизу */
+.hero__visual {
+  position: absolute; z-index: 0; top: 0; bottom: 0; left: 0; width: min(62%, 1000px);
+  -webkit-mask-image: linear-gradient(90deg, #000 78%, rgba(0,0,0,.72) 85%, rgba(0,0,0,.36) 92%, rgba(0,0,0,.1) 97%, transparent 100%), linear-gradient(180deg, #000 70%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image: linear-gradient(90deg, #000 78%, rgba(0,0,0,.72) 85%, rgba(0,0,0,.36) 92%, rgba(0,0,0,.1) 97%, transparent 100%), linear-gradient(180deg, #000 70%, transparent 100%);
+          mask-composite: intersect;
 }
-.hero.is-backup .hero__glow { opacity: 1; }
-.hero.is-blackout .hero__glow { opacity: .08; }
 .hero__ibp {
-  position: relative; z-index: 1;
-  width: min(100%, 410px); height: auto;
-  filter: drop-shadow(0 40px 40px rgba(0, 0, 0, .55));
-  transition: filter 1s ease, opacity 1s ease;
+  position: absolute; top: 0; bottom: 0; left: -7%; width: 107%; height: 100%;
+  object-fit: cover; object-position: 50% 50%;
+  transition: filter 1s ease;
 }
-.hero.is-blackout .hero__ibp { filter: drop-shadow(0 40px 40px rgba(0, 0, 0, .55)) brightness(.35) saturate(.6); }
-/* пол: тонкая линия-тень под системой */
-.hero__visual::after {
-  content: ""; position: absolute; z-index: 0; left: 0; bottom: 20px;
-  width: min(80%, 400px); height: 26px;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, .6), rgba(0, 0, 0, 0) 70%);
-}
+.hero.is-blackout .hero__ibp { filter: brightness(.35) saturate(.6); }
 
 /* плашка-статус: объясняет, что происходит при отключении */
 .hero__status {
-  position: absolute; z-index: 2; top: 36px; left: 0;
+  position: absolute; z-index: 2; top: 24px; left: var(--hero-px);
   display: flex; align-items: center; gap: 12px;
-  min-width: 250px; padding: 14px 20px 14px 16px;
+  min-width: 0; padding: 11px 20px 11px 16px;
   background: rgba(255, 255, 255, .95); color: #14171C;
   border-radius: 18px; box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
 }
 .hero__status b { display: block; font-size: 15.5px; line-height: 1.25; }
-.hero__status span:not(.hero__status-dot) { display: block; font-size: 13px; color: #5B5F66; }
+/* пояснение под заголовком плашки остаётся для скринридеров, глазами не нужно */
+.hero__status span:not(.hero__status-dot) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .hero__status-dot {
   position: relative; flex-shrink: 0; width: 12px; height: 12px; border-radius: 50%;
   background: #2FB35C; transition: background .4s;
@@ -225,7 +217,7 @@ h1, h2, p { margin: 0; }
 .hero.is-backup .hero__status-dot { background: var(--signal); }
 
 /* правая колонка: текст */
-.hero__content { display: flex; flex-direction: column; justify-content: center; justify-self: end; width: 100%; padding: 36px 0 32px; }
+.hero__content { display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; justify-self: end; grid-column: 2; width: 100%; padding: 36px 0 32px; }
 
 .hero__badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
 .hero__badges li {
@@ -283,7 +275,7 @@ h1, h2, p { margin: 0; }
 
 /* строка «Нам доверяют» */
 .trust {
-  grid-column: 1 / -1;
+  grid-column: 1 / -1; position: relative; z-index: 1;
   display: flex; align-items: center; gap: 44px;
   margin: 0 calc(-1 * var(--hero-px)); padding: 22px var(--hero-px);
   border-top: 1px solid var(--line);
@@ -348,13 +340,15 @@ h1, h2, p { margin: 0; }
 /* планшет и телефон: система сверху, текст ниже */
 @media (max-width: 900px) {
   .hero { --hero-px: 24px; display: flex; flex-direction: column; min-height: 0; }
-  .hero__visual { padding: 84px 0 12px; place-items: center; }
-  .hero__glow { left: 50%; translate: -50% -50%; }
-  .hero__visual::after { left: 50%; translate: -50% 0; }
-  .hero__ibp { width: min(70%, 340px); }
-  .hero__status { top: 20px; left: 0; min-width: 0; padding: 10px 14px 10px 12px; border-radius: 14px; }
+  .hero__visual {
+    position: relative; inset: auto; width: auto; height: 380px;
+    margin: 0 calc(-1 * var(--hero-px));
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+  }
+  .hero__ibp { object-position: 38% 50%; }
+  .hero__status { top: 330px; left: var(--hero-px); padding: 9px 16px 9px 12px; border-radius: 14px; }
   .hero__status b { font-size: 13.5px; }
-  .hero__status span:not(.hero__status-dot) { font-size: 12px; }
   .hero__content { padding: 12px 0 28px; max-width: none; }
   .hero__badges { margin-bottom: 24px; }
   .trust { gap: 28px; flex-wrap: wrap; padding-block: 18px; }
@@ -373,7 +367,8 @@ h1, h2, p { margin: 0; }
   :root { --gutter: 16px; --header-h: 68px; }
   .logo img { height: 32px; }
   .hero { --hero-px: 16px; }
-  .hero__ibp { width: min(78%, 300px); }
+  .hero__visual { height: 340px; }
+  .hero__status { top: 290px; }
   .hero__title { font-size: 32px; }
   .hero__lead { font-size: 16.5px; }
   .hero__cta { flex-direction: column; align-items: stretch; gap: 14px; }
