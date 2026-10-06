@@ -181,15 +181,16 @@ h1, h2, p { margin: 0; }
 
 /* левая сцена: фото ИБП на тёмной стене идёт от левого края и растворяется в доме справа и внизу */
 .hero__visual {
-  position: absolute; z-index: 0; top: 7%; bottom: 13%; left: 0; width: min(40%, 600px);
-  -webkit-mask-image: linear-gradient(90deg, #000 87%, rgba(0,0,0,.55) 93%, rgba(0,0,0,.2) 97%, transparent 100%), linear-gradient(180deg, transparent 0, #000 14%, #000 78%, rgba(0,0,0,.4) 90%, transparent 100%);
+  position: absolute; z-index: 0; left: max(16px, calc(var(--hero-px) - 28px)); top: 46%; translate: 0 -50%;
+  width: min(38%, 560px); aspect-ratio: 1000 / 967;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%), linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
   -webkit-mask-composite: source-in;
-          mask-image: linear-gradient(90deg, #000 87%, rgba(0,0,0,.55) 93%, rgba(0,0,0,.2) 97%, transparent 100%), linear-gradient(180deg, transparent 0, #000 14%, #000 78%, rgba(0,0,0,.4) 90%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%), linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
           mask-composite: intersect;
 }
 .hero__ibp {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: 50% 50%;
+  object-fit: cover;
   transition: filter 1s ease;
 }
 .hero.is-blackout .hero__ibp { filter: brightness(.35) saturate(.6); }
@@ -341,13 +342,10 @@ h1, h2, p { margin: 0; }
 @media (max-width: 900px) {
   .hero { --hero-px: 24px; display: flex; flex-direction: column; min-height: 0; }
   .hero__visual {
-    position: relative; inset: auto; width: auto; height: 380px;
-    margin: 0 calc(-1 * var(--hero-px));
-    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
-            mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+    position: relative; left: auto; top: auto; translate: none;
+    width: min(88%, 460px); margin: 32px auto 0;
   }
-  .hero__ibp { object-position: 38% 50%; }
-  .hero__status { top: 330px; left: var(--hero-px); padding: 9px 16px 9px 12px; border-radius: 14px; }
+  .hero__status { top: 14px; left: var(--hero-px); padding: 9px 16px 9px 12px; border-radius: 14px; }
   .hero__status b { font-size: 13.5px; }
   .hero__content { padding: 12px 0 28px; max-width: none; }
   .hero__badges { margin-bottom: 24px; }
@@ -367,8 +365,6 @@ h1, h2, p { margin: 0; }
   :root { --gutter: 16px; --header-h: 68px; }
   .logo img { height: 32px; }
   .hero { --hero-px: 16px; }
-  .hero__visual { height: 340px; }
-  .hero__status { top: 290px; }
   .hero__title { font-size: 32px; }
   .hero__lead { font-size: 16.5px; }
   .hero__cta { flex-direction: column; align-items: stretch; gap: 14px; }
