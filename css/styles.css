@@ -228,14 +228,10 @@ h1, h2, p { margin: 0; }
 .hero__badges b { color: var(--accent); font-weight: 700; }
 
 .hero__title {
-  font-size: clamp(34px, 3.6vw, 56px); line-height: 1.02; letter-spacing: -.03em; font-weight: 700;
+  font-size: clamp(32px, 3.3vw, 50px); line-height: 1.04; letter-spacing: -.03em; font-weight: 700;
 }
 .h1-line { display: block; }
-.h1-line--mark span {
-  display: inline-block; padding: 0 .18em .04em; margin: .06em 0 .06em -.18em;
-  color: #14171C; background: var(--accent); border-radius: .2em;
-  box-shadow: 0 10px 40px rgba(242, 169, 59, .28);
-}
+.h1-line--mark { margin: .12em 0; color: var(--accent); font-weight: 800; }
 
 .hero__lead { margin-top: 22px; max-width: 520px; font-size: 18px; line-height: 1.45; color: var(--text-2); }
 
@@ -274,21 +270,31 @@ h1, h2, p { margin: 0; }
 .btn-pill--sm { height: 56px; padding: 0 28px; width: 100%; justify-content: center; }
 .btn-pill--full { width: 100%; justify-content: center; padding: 0 28px; margin-top: 8px; }
 
-/* строка «Нам доверяют» */
+/* строка «Нам доверяют»: подпись слева, три клиента, между ними тонкие линии */
 .trust {
   grid-column: 1 / -1; position: relative; z-index: 1;
-  display: flex; align-items: center; gap: 44px;
-  margin: 0 calc(-1 * var(--hero-px)); padding: 22px var(--hero-px);
+  padding: 0 0 20px;
+}
+.trust__inner {
+  display: grid; grid-template-columns: 190px repeat(3, minmax(0, 1fr));
   border-top: 1px solid var(--line);
 }
-.trust__label { font-size: 13px; letter-spacing: .02em; color: var(--muted); }
-.trust__item { display: flex; align-items: center; gap: 14px; }
-.trust__item b { font-size: 20px; letter-spacing: .01em; text-transform: uppercase; font-weight: 700; }
-.trust__logo {
-  width: 52px; height: 52px; border-radius: 50%; background: #fff;
-  display: grid; place-items: center; flex-shrink: 0; padding: 10px;
+.trust__label {
+  align-self: center; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
 }
-.trust__logo img { max-height: 30px; width: auto; max-width: 100%; }
+.trust__item {
+  display: flex; align-items: center; gap: 18px; min-width: 0;
+  padding: 18px 28px; border-left: 1px solid var(--line);
+}
+.trust__logo {
+  width: 68px; height: 68px; border-radius: 50%; flex-shrink: 0;
+  display: grid; place-items: center; padding: 16px;
+  background: rgba(255, 255, 255, .06); border: 1px solid var(--line);
+}
+.trust__logo img { width: 100%; height: 100%; object-fit: contain; }
+.trust__text { min-width: 0; }
+.trust__text b { display: block; font-size: 24px; line-height: 1.15; letter-spacing: .01em; text-transform: uppercase; font-weight: 700; }
+.trust__text span { display: block; margin-top: 4px; font-size: 15px; line-height: 1.4; color: var(--text-2); }
 
 /* ============ ЛИПКАЯ КНОПКА НА ТЕЛЕФОНЕ ============ */
 .sticky-cta {
@@ -328,11 +334,12 @@ h1, h2, p { margin: 0; }
 
 /* ============ АДАПТИВ ============ */
 @media (max-width: 1280px) {
-  .nav { gap: 22px; }
-  .header__inner { gap: 22px; }
+  .nav { gap: 18px; margin-left: 0; }
+  .header__inner { gap: 16px; }
+  .phone__note { font-size: 11px; }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1240px) {
   .nav { display: none; }
   .contact { margin-left: auto; }
   .burger { display: flex; }
@@ -349,8 +356,9 @@ h1, h2, p { margin: 0; }
   .hero__status b { font-size: 13.5px; }
   .hero__content { padding: 12px 0 28px; max-width: none; }
   .hero__badges { margin-bottom: 24px; }
-  .trust { gap: 28px; flex-wrap: wrap; padding-block: 18px; }
-  .trust__label { width: 100%; }
+  .trust__inner { grid-template-columns: 1fr; }
+  .trust__label { padding: 18px 0 4px; }
+  .trust__item { border-left: 0; border-top: 1px solid var(--line); padding: 16px 0; }
   .hero__title { font-size: clamp(32px, 6.4vw, 48px); }
 }
 
@@ -371,9 +379,9 @@ h1, h2, p { margin: 0; }
   .hero__cta .btn-pill { width: 100%; }
   .hero__offer { max-width: none; text-align: center; }
   .hero__badges li { font-size: 13px; padding: 8px 14px; }
-  .trust { gap: 20px 24px; }
-  .trust__item b { font-size: 16px; }
-  .trust__logo { width: 44px; height: 44px; padding: 8px; }
+  .trust { padding-bottom: 20px; }
+  .trust__text b { font-size: 19px; }
+  .trust__logo { width: 56px; height: 56px; padding: 13px; }
   .modal__form { padding: 30px 20px 24px; }
 }
 

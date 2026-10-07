@@ -15,7 +15,7 @@
       var hour = parseInt(parts.filter(function (p) { return p.type === 'hour'; })[0].value, 10) % 24;
       var open = ['Sat', 'Sun'].indexOf(day) === -1 && hour >= 9 && hour < 18;
       statusBox.classList.toggle('is-off', !open);
-      $('[data-status]', statusBox).textContent = open ? 'На связи — ответим за 30 минут' : 'Ответим утром, с 9:00';
+      $('[data-status]', statusBox).textContent = open ? 'На связи, ответим за 30 минут' : 'Ответим утром, с 9:00';
     };
     tick();
     setInterval(tick, 60000);
@@ -55,7 +55,7 @@
       burger.setAttribute('aria-expanded', String(!open)); drawer.hidden = open;
     });
     $$('a', drawer).forEach(function (a) { a.addEventListener('click', closeDrawer); });
-    window.addEventListener('resize', function () { if (window.innerWidth > 1180) closeDrawer(); });
+    window.addEventListener('resize', function () { if (window.innerWidth > 1240) closeDrawer(); });
   }
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeMore(); closeDrawer(); } });
 
