@@ -115,15 +115,15 @@
       <h1 class="hero__title">
         <span class="h1-line">Свет в доме не гаснет:</span>
         <span class="h1-line h1-line--mark"><span>Бесперебойное питание частного дома под ключ</span></span>
-        <span class="h1-line">от расчёта до запуска</span>
+        <span class="h1-line">от расчёта до пусконаладки</span>
       </h1>
 
-      <p class="hero__lead">Подберём мощность и ёмкость батарей под ваши потребности. Москва и область.</p>
+      <p class="hero__lead">Рассчитаем нагрузку, подберём мощность ИБП и ёмкость АКБ под ваш объект. Москва и область.</p>
 
       <!-- TODO: подтвердить у заказчика, что состав «проект, поставка, монтаж, пусконаладка» относится к ИБП -->
       <ol class="usp">
-        <li>Свой отдел проектирования: нагрузку и схему считаем сами</li>
-        <li>Один договор: проект, поставка, монтаж, пусконаладка</li>
+        <li>Свой отдел проектирования: расчёт нагрузки и схема электроснабжения</li>
+        <li>Один договор: проектирование, поставка, монтаж, ПНР</li>
         <li>Цена фиксируется в договоре — без доплат по ходу</li>
       </ol>
 
@@ -174,7 +174,7 @@
 
         <form class="quiz__form" novalidate data-quiz-form>
           <fieldset class="qstep" data-step="1">
-            <legend class="qstep__title">Что подключаем к резерву?</legend>
+            <legend class="qstep__title">Какой объект резервируем?</legend>
             <p class="qstep__hint">Выберите один вариант</p>
           <div class="opts">
             <label class="opt"><input type="radio" name="object" value="Загородный дом"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Загородный дом<span class="opt__sub">до 500 м²</span></span></label>
@@ -185,24 +185,24 @@
           </fieldset>
 
           <fieldset class="qstep" data-step="2" hidden>
-            <legend class="qstep__title">Что должно работать при отключении?</legend>
+            <legend class="qstep__title">Какие нагрузки резервируем?</legend>
             <p class="qstep__hint">Можно выбрать несколько вариантов</p>
           <div class="opts">
-            <label class="opt"><input type="checkbox" name="loads" value="Весь дом целиком"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Весь дом целиком</span></label>
-            <label class="opt"><input type="checkbox" name="loads" value="Отопление и котельная"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Отопление и котельная</span></label>
-            <label class="opt"><input type="checkbox" name="loads" value="Скважина, насосы, вентиляция"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Скважина, насосы, вентиляция</span></label>
-            <label class="opt"><input type="checkbox" name="loads" value="Кондиционеры и тёплые полы"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Кондиционеры и тёплые полы</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Весь объект целиком"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Весь объект целиком</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Котельная и циркуляционные насосы"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Котельная и циркуляционные насосы</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Скважинный насос, вентиляция"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Скважинный насос, вентиляция</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Климат: кондиционеры, тёплые полы"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Климат: кондиционеры, тёплые полы</span></label>
             <label class="opt"><input type="checkbox" name="loads" value="Бассейн и спа"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Бассейн и спа</span></label>
             <label class="opt"><input type="checkbox" name="loads" value="Кухня и бытовая техника"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Кухня и бытовая техника</span></label>
-            <label class="opt"><input type="checkbox" name="loads" value="Серверная, охрана, видеонаблюдение"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Серверная, охрана, видеонаблюдение</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Слаботочные системы: сервер, охрана, видеонаблюдение"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Слаботочные системы: сервер, охрана, видеонаблюдение</span></label>
             <label class="opt"><input type="checkbox" name="loads" value="Зарядка электромобиля"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Зарядка электромобиля</span></label>
             <label class="opt"><input type="checkbox" name="loads" value="Производственное оборудование"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Производственное оборудование</span></label>
           </div>
           </fieldset>
 
           <fieldset class="qstep" data-step="3" hidden>
-            <legend class="qstep__title">Какая мощность нужна?</legend>
-            <p class="qstep__hint">Если знаете нагрузку, укажите её. Не знаете — рассчитаем по вашему перечню</p>
+            <legend class="qstep__title">Расчётная мощность нагрузки</legend>
+            <p class="qstep__hint">Если нагрузка известна, укажите её. Нет — рассчитаем по перечню потребителей</p>
           <div class="opts">
             <label class="opt"><input type="radio" name="power" value="До 15 кВт"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">До 15 кВт<span class="opt__sub">часть нагрузок</span></span></label>
             <label class="opt"><input type="radio" name="power" value="15–30 кВт"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">15–30 кВт<span class="opt__sub">дом целиком</span></span></label>
@@ -216,8 +216,8 @@
           </fieldset>
 
           <fieldset class="qstep" data-step="4" hidden>
-            <legend class="qstep__title">Сколько часов дом живёт без сети?</legend>
-            <p class="qstep__hint">От этого зависит ёмкость батарей</p>
+            <legend class="qstep__title">Требуемое время автономной работы</legend>
+            <p class="qstep__hint">От него зависит ёмкость АКБ</p>
           <div class="opts">
             <label class="opt"><input type="radio" name="autonomy" value="До 2 часов"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">До 2 часов<span class="opt__sub">короткие отключения</span></span></label>
             <label class="opt"><input type="radio" name="autonomy" value="2–8 часов"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">2–8 часов<span class="opt__sub">вечер и ночь</span></span></label>
@@ -229,7 +229,7 @@
 
           <fieldset class="qstep" data-step="5" hidden>
             <legend class="qstep__title">Куда прислать расчёт?</legend>
-            <p class="qstep__hint">Инженер свяжется и уточнит детали по вашему объекту</p>
+            <p class="qstep__hint">Инженер свяжется и уточнит исходные данные по объекту</p>
             <div class="qfields">
               <label class="field"><span>Имя</span><input id="quiz-name" type="text" name="name" autocomplete="name"></label>
               <label class="field"><span>Телефон</span><input id="quiz-phone" type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" data-phone></label>
@@ -256,9 +256,9 @@
             <h3 class="qstep__title">Ваша предварительная конфигурация</h3>
             <dl class="summary">
               <div><dt>Объект</dt><dd data-sum="object"></dd></div>
-              <div><dt>Резервируем</dt><dd data-sum="loads"></dd></div>
+              <div><dt>Нагрузки</dt><dd data-sum="loads"></dd></div>
               <div><dt>Мощность</dt><dd data-sum="power"></dd></div>
-              <div><dt>Автономность</dt><dd data-sum="autonomy"></dd></div>
+              <div><dt>Автономная работа</dt><dd data-sum="autonomy"></dd></div>
             </dl>
             <p class="quiz__done-note">Точный состав и стоимость инженер пришлёт после уточнения нагрузки. Заявка отправлена.</p>
           </div>
@@ -286,11 +286,11 @@
         <div class="manager__bubble" aria-live="polite">
           <b>Михаил</b>
           <span class="manager__role">Инженер-проектировщик, Энергосистемы</span>
-          <p data-manager-text>Расскажите об объекте — от этого зависит мощность и схема подключения.</p>
+          <p data-manager-text>Расскажите об объекте: от него зависят мощность ИБП и схема подключения.</p>
         </div>
         <div class="quiz__aside-text">
-          <p class="quiz__aside-title">Четыре вопроса — и мы соберём исходные данные для расчёта.</p>
-          <p class="quiz__aside-sub">Никаких обязательств: это ориентир по вашему объекту.</p>
+          <p class="quiz__aside-title">Четыре вопроса — и мы соберём исходные данные для расчёта нагрузки.</p>
+          <p class="quiz__aside-sub">Без обязательств: это предварительный подбор по вашему объекту.</p>
           <div class="quiz__msg">
             <a class="msg msg--max" href="https://max.ru/" aria-label="Написать в Max" target="_blank" rel="noopener"><svg viewBox="0 0 100 100" width="18" height="18" fill="#fff" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M50.76 0.26C78.29 0.26 99.89 22.6 99.89 50.15C99.89 77.7 77.61 99.49 51.02 99.49C41.59 99.49 37.01 98.16 29.65 92.95C29.14 92.59 28.45 92.68 28.02 93.14C22.36 99.18 7.85 103.43 7.19 95.18C7.19 80.79 0 71.45 0 49.88C0 21.55 23.22 0.26 50.76 0.26ZM51.53 24.81C38.46 24.13 28.26 33.2 26.01 47.38C24.15 59.13 27.45 73.45 30.28 74.18C31.48 74.48 34.36 72.28 36.46 70.3C36.85 69.93 37.45 69.86 37.91 70.15C41.18 72.15 44.88 73.65 48.96 73.86C62.37 74.56 74.26 64.06 74.96 50.65C75.66 37.23 64.94 25.5 51.53 24.8V24.81Z"/></svg></a>
             <a class="msg msg--tg" href="https://t.me/" aria-label="Написать в Telegram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10l-4 4 6 6 4-16-18 7 4 2 2 6 3-4"/></svg></a>
@@ -392,11 +392,11 @@
 <section class="section section--dark process" id="process" data-process>
   <div class="container">
     <h2 class="section__title">
-      <span class="muted">Пять шагов от первого выезда —</span>
-      до работающего резерва в вашем доме
+      <span class="muted">Пять этапов от выезда инженера —</span>
+      до работающего резерва на объекте
     </h2>
     <div class="process__head">
-      <p class="process__lead">Проект, оборудование и бригада — одна команда. Состав работ согласуем после осмотра дома.</p>
+      <p class="process__lead">Проектирование, поставка и монтаж — одна команда. Состав работ согласуем по итогам обследования объекта.</p>
       <div class="process__ctrl">
         <button class="ctrl" type="button" data-move="-1" aria-label="Предыдущий шаг"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
         <button class="ctrl" type="button" data-move="1" aria-label="Следующий шаг"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -404,52 +404,52 @@
     </div>
 
     <div class="stage" data-stage>
-      <article class="chapter is-active" data-chapter="0" data-pos="top" tabindex="0" aria-label="Обследуем и считаем">
+      <article class="chapter is-active" data-chapter="0" data-pos="top" tabindex="0" aria-label="Обследование и расчёт">
         <img src="assets/step-1-survey.jpg" alt="Инженеры с чертежами у дома" width="960" height="960">
         <i class="chapter__shade" aria-hidden="true"></i>
-        <div class="chapter__rail" aria-hidden="true"><span class="chapter__no">01–02</span><span class="chapter__vname">Обследуем и считаем</span></div>
+        <div class="chapter__rail" aria-hidden="true"><span class="chapter__no">01–02</span><span class="chapter__vname">Обследование и расчёт</span></div>
         <div class="chapter__card">
-          <h3 class="chapter__title">Обследуем и считаем</h3>
+          <h3 class="chapter__title">Обследование и расчёт</h3>
           <ol class="steps">
             <li class="step" data-step="0">
               <span class="step__no">1</span>
-              <div><b class="step__title">Выезд и замер</b><div class="step__more"><div><p class="step__text">Инженер смотрит ввод, щит и место под систему, снимает реальную нагрузку дома.</p><p class="step__get">Вы получаете: Список потребителей и схема размещения</p></div></div></div>
+              <div><b class="step__title">Выезд и обследование</b><div class="step__more"><div><p class="step__text">Инженер обследует ввод и ВРУ, определяет точку подключения и место установки, замеряет фактическую нагрузку.</p><p class="step__get">Вы получаете: Перечень нагрузок и схема размещения</p></div></div></div>
             </li>
             <li class="step" data-step="1">
               <span class="step__no">2</span>
-              <div><b class="step__title">Проект и расчёт</b><div class="step__more"><div><p class="step__text">Считаем мощность и ёмкость батарей, чертим схему подключения.</p><p class="step__get">Вы получаете: Проект и смета</p></div></div></div>
+              <div><b class="step__title">Проект и расчёт</b><div class="step__more"><div><p class="step__text">Рассчитываем мощность ИБП и ёмкость АКБ, разрабатываем схему подключения.</p><p class="step__get">Вы получаете: Проект и смета</p></div></div></div>
             </li>
           </ol>
         </div>
       </article>
-      <article class="chapter" data-chapter="1" tabindex="0" aria-label="Поставляем">
+      <article class="chapter" data-chapter="1" tabindex="0" aria-label="Поставка">
         <img src="assets/step-2-delivery.jpg" alt="Бригада несёт оборудование в дом" width="960" height="960">
         <i class="chapter__shade" aria-hidden="true"></i>
-        <div class="chapter__rail" aria-hidden="true"><span class="chapter__no">03</span><span class="chapter__vname">Поставляем</span></div>
+        <div class="chapter__rail" aria-hidden="true"><span class="chapter__no">03</span><span class="chapter__vname">Поставка</span></div>
         <div class="chapter__card">
-          <h3 class="chapter__title">Поставляем</h3>
+          <h3 class="chapter__title">Поставка</h3>
           <ol class="steps">
             <li class="step" data-step="2">
               <span class="step__no">3</span>
-              <div><b class="step__title">Поставка</b><div class="step__more"><div><p class="step__text">Привозим оборудование на объект и сверяем комплектность до монтажа.</p><p class="step__get">Вы получаете: Оборудование на месте по спецификации</p></div></div></div>
+              <div><b class="step__title">Поставка</b><div class="step__more"><div><p class="step__text">Доставляем оборудование на объект, проверяем комплектность по спецификации до монтажа.</p><p class="step__get">Вы получаете: Оборудование на объекте по спецификации</p></div></div></div>
             </li>
           </ol>
         </div>
       </article>
-      <article class="chapter" data-chapter="2" tabindex="0" aria-label="Монтируем и запускаем">
+      <article class="chapter" data-chapter="2" tabindex="0" aria-label="Монтаж и пусконаладка">
         <img src="assets/step-3-install.jpg" alt="Монтажники устанавливают систему ИБП на стене" width="960" height="960">
         <i class="chapter__shade" aria-hidden="true"></i>
-        <div class="chapter__rail" aria-hidden="true"><span class="chapter__no">04–05</span><span class="chapter__vname">Монтируем и запускаем</span></div>
+        <div class="chapter__rail" aria-hidden="true"><span class="chapter__no">04–05</span><span class="chapter__vname">Монтаж и пусконаладка</span></div>
         <div class="chapter__card">
-          <h3 class="chapter__title">Монтируем и запускаем</h3>
+          <h3 class="chapter__title">Монтаж и пусконаладка</h3>
           <ol class="steps">
             <li class="step" data-step="3">
               <span class="step__no">4</span>
-              <div><b class="step__title">Монтаж</b><div class="step__more"><div><p class="step__text">Ставим инверторы, батареи и байпасный щит, прокладываем кабели.</p><p class="step__get">Вы получаете: Система, смонтированная по проекту</p></div></div></div>
+              <div><b class="step__title">Монтаж</b><div class="step__more"><div><p class="step__text">Монтируем инверторы, АКБ и байпасный щит, прокладываем кабельные линии.</p><p class="step__get">Вы получаете: Система, смонтированная по проекту</p></div></div></div>
             </li>
             <li class="step" data-step="4">
               <span class="step__no">5</span>
-              <div><b class="step__title">Пусконаладка и сдача</b><div class="step__more"><div><p class="step__text">Настраиваем, проверяем под нагрузкой, показываем, как пользоваться.</p><p class="step__get">Вы получаете: Рабочий резерв и документы</p></div></div></div>
+              <div><b class="step__title">Пусконаладка и сдача</b><div class="step__more"><div><p class="step__text">Выполняем пусконаладку, испытываем под нагрузкой, обучаем эксплуатации.</p><p class="step__get">Вы получаете: Работающий резерв и комплект документации</p></div></div></div>
             </li>
           </ol>
         </div>
@@ -459,7 +459,7 @@
     <div class="track" data-track>
       <i class="track__line" aria-hidden="true"><b data-track-fill></b></i>
       <ol class="track__list">
-        <li><button class="track__btn" type="button" data-go="0"><i class="track__dot" aria-hidden="true"></i><span>Выезд и замер</span></button></li>
+        <li><button class="track__btn" type="button" data-go="0"><i class="track__dot" aria-hidden="true"></i><span>Выезд и обследование</span></button></li>
         <li><button class="track__btn" type="button" data-go="1"><i class="track__dot" aria-hidden="true"></i><span>Проект и расчёт</span></button></li>
         <li><button class="track__btn" type="button" data-go="2"><i class="track__dot" aria-hidden="true"></i><span>Поставка</span></button></li>
         <li><button class="track__btn" type="button" data-go="3"><i class="track__dot" aria-hidden="true"></i><span>Монтаж</span></button></li>
@@ -468,8 +468,8 @@
     </div>
 
     <div class="process__cta">
-      <button class="btn-pill" type="button" data-callback-open data-callback-title="Записаться на осмотр" data-callback-text="Оставьте контакт: инженер согласует время выезда и снимет нагрузку вашего дома.">
-        <span>Записаться на осмотр</span>
+      <button class="btn-pill" type="button" data-callback-open data-callback-title="Выезд инженера на объект" data-callback-text="Оставьте контакт: инженер согласует время выезда и проведёт обследование объекта.">
+        <span>Вызвать инженера на объект</span>
         <span class="btn-pill__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
       </button>
     </div>
