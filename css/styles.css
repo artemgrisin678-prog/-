@@ -231,7 +231,13 @@ h1, h2, p { margin: 0; }
   font-size: clamp(32px, 3.3vw, 50px); line-height: 1.04; letter-spacing: -.03em; font-weight: 700;
 }
 .h1-line { display: block; }
-.h1-line--mark { margin: .12em 0; color: var(--accent); font-weight: 800; }
+.h1-line--mark { margin: .16em 0; font-weight: 800; line-height: 1.22; }
+.h1-line--mark span {
+  padding: .02em .22em .06em; margin-left: -.22em;
+  color: #14171C; background: var(--accent); border-radius: .22em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  box-shadow: 0 10px 40px rgba(242, 169, 59, .28);
+}
 
 .hero__lead { margin-top: 22px; max-width: 520px; font-size: 18px; line-height: 1.45; color: var(--text-2); }
 
