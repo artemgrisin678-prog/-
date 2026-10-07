@@ -274,16 +274,18 @@
     marquee.classList.add('is-running');
   }
 
-  /* ---------- «Как работаем»: три кадра, пять шагов, автопереключение ---------- */
+  /* ---------- «Как работаем»: три кадра, пять шагов; листается сам каждые 4 секунды и руками ---------- */
   var proc = $('[data-process]');
   if (proc) {
+    var AUTO_MS = 4000;
     var chapters = $$('.chapter', proc);
     var stepEls = $$('.step', proc);
     var trackBtns = $$('[data-go]', proc);
     var fill = $('[data-track-fill]', proc);
+    var stage = $('[data-stage]', proc);
     var chapterOf = [0, 0, 1, 2, 2];
     var wide = window.matchMedia('(min-width: 901px)');
-    var cur = 0, timer = null, hover = false, seen = false;
+    var cur = 0, timer = null, seen = false, scrolling = null, dragAt = 0;
 
     var show = function (step) {
       cur = step;
@@ -296,35 +298,81 @@
       });
       fill.style.width = (step / (trackBtns.length - 1) * 100) + '%';
     };
+    // на телефоне кадры лежат в ленте с прокруткой: подводим нужный кадр к центру
+    var scrollToChapter = function (ch) {
+      var c = chapters[ch];
+      stage.scrollTo({ left: c.offsetLeft - (stage.clientWidth - c.offsetWidth) / 2, behavior: reduced ? 'auto' : 'smooth' });
+    };
+    // шаг на десктопе — по шагам; на телефоне — по кадрам
+    var move = function (dir) {
+      var n;
+      if (wide.matches) {
+        n = (cur + dir + trackBtns.length) % trackBtns.length;
+      } else {
+        var ch = (chapterOf[cur] + dir + chapters.length) % chapters.length;
+        n = chapterOf.indexOf(ch);
+        scrollToChapter(ch);
+      }
+      show(n);
+    };
     var stop = function () { if (timer) { clearInterval(timer); timer = null; } };
     var play = function () {
       stop();
-      if (reduced || !wide.matches || !seen || hover) return;
-      timer = setInterval(function () { show((cur + 1) % trackBtns.length); }, 5200);
+      if (reduced || !seen) return;
+      timer = setInterval(function () { move(1); }, AUTO_MS);
     };
 
-    chapters.forEach(function (c, i) {
-      var first = chapterOf.indexOf(i);
-      var go = function () { if (wide.matches && chapterOf[cur] !== i) show(first); };
-      c.addEventListener('click', go);
-      c.addEventListener('focus', go);
-      c.addEventListener('mouseenter', go);
+    // руками: стрелки, клик по кадру и по точке, клавиатура, перетаскивание
+    $$('[data-move]', proc).forEach(function (b) {
+      b.addEventListener('click', function () { move(parseInt(b.getAttribute('data-move'), 10)); play(); });
     });
     trackBtns.forEach(function (b) {
       b.addEventListener('click', function () { show(parseInt(b.getAttribute('data-go'), 10)); play(); });
     });
-    var stage = $('[data-stage]', proc);
-    [stage, $('[data-track]', proc)].forEach(function (el) {
-      el.addEventListener('mouseenter', function () { hover = true; stop(); });
-      el.addEventListener('mouseleave', function () { hover = false; play(); });
+    chapters.forEach(function (c, i) {
+      var open = function () {
+        if (Date.now() - dragAt < 400) return; // клик после перетаскивания не считаем
+        if (chapterOf[cur] !== i) { show(chapterOf.indexOf(i)); if (!wide.matches) scrollToChapter(i); play(); }
+      };
+      c.addEventListener('click', open);
+      // с клавиатуры (Tab) кадр открывается при фокусе; при нажатии мышью фокус игнорируем, чтобы не мешать перетаскиванию
+      c.addEventListener('focus', function () { if (c.matches(':focus-visible')) open(); });
     });
-    wide.addEventListener && wide.addEventListener('change', play);
+    proc.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { move(1); play(); }
+      if (e.key === 'ArrowLeft') { move(-1); play(); }
+    });
+    var downX = null;
+    stage.addEventListener('pointerdown', function (e) { downX = e.clientX; stop(); });
+    var release = function (e) {
+      if (downX !== null && wide.matches && e.type === 'pointerup') {
+        var dx = e.clientX - downX;
+        if (Math.abs(dx) > 60) { dragAt = Date.now(); move(dx < 0 ? 1 : -1); }
+      }
+      downX = null; play();
+    };
+    stage.addEventListener('pointerup', release);
+    stage.addEventListener('pointercancel', release);
+    // свайп пальцем по ленте на телефоне: определяем, какой кадр остановился по центру
+    stage.addEventListener('scroll', function () {
+      if (wide.matches) return;
+      clearTimeout(scrolling);
+      scrolling = setTimeout(function () {
+        var mid = stage.scrollLeft + stage.clientWidth / 2, best = 0, bestD = 1e9;
+        chapters.forEach(function (c, i) {
+          var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid);
+          if (d < bestD) { bestD = d; best = i; }
+        });
+        if (chapterOf[cur] !== best) show(chapterOf.indexOf(best));
+      }, 120);
+    }, { passive: true });
+    wide.addEventListener && wide.addEventListener('change', function () { if (wide.matches) stage.scrollTo({ left: 0 }); play(); });
 
     show(0);
     var inProc = function () {
       var r = proc.getBoundingClientRect();
       var visible = r.top < window.innerHeight * .6 && r.bottom > window.innerHeight * .3;
-      if (visible !== seen) { seen = visible; if (seen) show(0); play(); }
+      if (visible !== seen) { seen = visible; if (seen) { show(0); if (!wide.matches) stage.scrollTo({ left: 0 }); } play(); }
     };
     // наблюдатель и запасной обработчик прокрутки: если наблюдатель не сработает, лента всё равно запустится
     if ('IntersectionObserver' in window) {
