@@ -421,6 +421,29 @@ main > .section:last-child { padding-bottom: 120px; }
 .quiz__msg { margin-top: 22px; display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--muted); }
 .quiz__msg .msg { width: 40px; height: 40px; margin: 0; }
 
+/* ============ БЛОК 3 — ЛЕНТА КЛИЕНТОВ ============ */
+.section--clients { overflow: hidden; }
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+}
+.marquee__track {
+  display: flex; width: max-content;
+}
+.marquee.is-running .marquee__track { animation: marquee 70s linear infinite; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+@keyframes marquee { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+.client {
+  flex: 0 0 374px; margin-right: 24px; min-height: 248px; padding: 30px 30px 28px;
+  display: flex; flex-direction: column; gap: 4px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card);
+}
+.client__logo { height: 52px; width: auto; max-width: 100%; object-fit: contain; object-position: left center; margin-bottom: 28px; }
+.client__name { min-height: 52px; margin-bottom: 28px; font-size: 25px; line-height: 1.15; font-weight: 700; letter-spacing: -.01em; text-transform: uppercase; color: var(--text-2); }
+.client b { font-size: 16.5px; line-height: 1.3; font-weight: 700; }
+.client span:not(.client__name) { font-size: 15px; line-height: 1.45; color: var(--muted); }
+
 /* ============ ЛИПКАЯ КНОПКА НА ТЕЛЕФОНЕ ============ */
 .sticky-cta {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: none;
@@ -516,6 +539,8 @@ main > .section:last-child { padding-bottom: 120px; }
   .quiz__aside-text { padding-top: 28px; }
 }
 @media (max-width: 768px) {
+  .client { flex-basis: 288px; min-height: 220px; padding: 24px; }
+  .client__name { font-size: 21px; }
   .section { padding-block: 72px 0; }
   main > .section:last-child { padding-bottom: 72px; }
   .section__title { margin-bottom: 40px; }
@@ -535,5 +560,6 @@ main > .section:last-child { padding-bottom: 120px; }
 /* ============ БЕЗ ДВИЖЕНИЯ ============ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

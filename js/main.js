@@ -262,6 +262,18 @@
     render();
   }
 
+  /* ---------- лента клиентов: дублируем набор для бесконечной прокрутки ---------- */
+  var marquee = $('[data-marquee]');
+  if (marquee && !reduced) {
+    var track = $('[data-marquee-track]', marquee);
+    $$('li', track).slice().forEach(function (li) {
+      var twin = li.cloneNode(true);
+      twin.setAttribute('aria-hidden', 'true');
+      track.appendChild(twin);
+    });
+    marquee.classList.add('is-running');
+  }
+
   /* ---------- первый экран: один сценарий «сеть пропала — дом на батарее» ---------- */
   var hero = $('[data-hero]');
   var card = $('[data-status-card]');
