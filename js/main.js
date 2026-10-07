@@ -274,6 +274,66 @@
     marquee.classList.add('is-running');
   }
 
+  /* ---------- «Как работаем»: три кадра, пять шагов, автопереключение ---------- */
+  var proc = $('[data-process]');
+  if (proc) {
+    var chapters = $$('.chapter', proc);
+    var stepEls = $$('.step', proc);
+    var trackBtns = $$('[data-go]', proc);
+    var fill = $('[data-track-fill]', proc);
+    var chapterOf = [0, 0, 1, 2, 2];
+    var wide = window.matchMedia('(min-width: 901px)');
+    var cur = 0, timer = null, hover = false, seen = false;
+
+    var show = function (step) {
+      cur = step;
+      var ch = chapterOf[step];
+      chapters.forEach(function (c, i) { c.classList.toggle('is-active', i === ch); });
+      stepEls.forEach(function (s) { s.classList.toggle('is-current', parseInt(s.getAttribute('data-step'), 10) === step); });
+      trackBtns.forEach(function (b, i) {
+        b.classList.toggle('is-active', i === step);
+        b.classList.toggle('is-done', i < step);
+      });
+      fill.style.width = (step / (trackBtns.length - 1) * 100) + '%';
+    };
+    var stop = function () { if (timer) { clearInterval(timer); timer = null; } };
+    var play = function () {
+      stop();
+      if (reduced || !wide.matches || !seen || hover) return;
+      timer = setInterval(function () { show((cur + 1) % trackBtns.length); }, 5200);
+    };
+
+    chapters.forEach(function (c, i) {
+      var first = chapterOf.indexOf(i);
+      var go = function () { if (wide.matches && chapterOf[cur] !== i) show(first); };
+      c.addEventListener('click', go);
+      c.addEventListener('focus', go);
+      c.addEventListener('mouseenter', go);
+    });
+    trackBtns.forEach(function (b) {
+      b.addEventListener('click', function () { show(parseInt(b.getAttribute('data-go'), 10)); play(); });
+    });
+    var stage = $('[data-stage]', proc);
+    [stage, $('[data-track]', proc)].forEach(function (el) {
+      el.addEventListener('mouseenter', function () { hover = true; stop(); });
+      el.addEventListener('mouseleave', function () { hover = false; play(); });
+    });
+    wide.addEventListener && wide.addEventListener('change', play);
+
+    show(0);
+    var inProc = function () {
+      var r = proc.getBoundingClientRect();
+      var visible = r.top < window.innerHeight * .6 && r.bottom > window.innerHeight * .3;
+      if (visible !== seen) { seen = visible; if (seen) show(0); play(); }
+    };
+    // наблюдатель и запасной обработчик прокрутки: если наблюдатель не сработает, лента всё равно запустится
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(inProc, { threshold: [0, .3, .6] }).observe(proc);
+    }
+    window.addEventListener('scroll', inProc, { passive: true });
+    inProc();
+  }
+
   /* ---------- первый экран: один сценарий «сеть пропала — дом на батарее» ---------- */
   var hero = $('[data-hero]');
   var card = $('[data-status-card]');
