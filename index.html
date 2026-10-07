@@ -128,12 +128,12 @@
       </ol>
 
       <div class="hero__cta">
-        <button class="btn-pill" type="button" data-callback-open data-callback-title="Рассчитать стоимость ИБП" data-callback-text="Скажите, что должно работать без света, и мы подберём мощность и ёмкость батарей. Без обязательств">
+        <a class="btn-pill" href="#quiz">
           <span>Рассчитать стоимость</span>
           <span class="btn-pill__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
           </span>
-        </button>
+        </a>
         <!-- TODO: подтвердить «30 минут» и «выезд в течение суток» для ИБП (формулы взяты с e-systems.su) -->
         <p class="hero__offer"><b>Расчёт за 30 минут.</b> Выезд инженера — в течение суток</p>
       </div>
@@ -160,13 +160,155 @@
   </div>
 </section>
 
+<!-- ============ БЛОК 2 — ОПРОС ============ -->
+<section class="section" id="quiz">
+  <div class="container">
+    <h2 class="section__title">
+      <span class="muted">Четыре вопроса об объекте —</span>
+      и подготовим расчёт под вашу нагрузку
+    </h2>
+
+    <div class="quiz" data-quiz>
+      <div class="quiz__card">
+        <div class="quiz__bar" aria-hidden="true"><i data-quiz-bar></i></div>
+
+        <form class="quiz__form" novalidate data-quiz-form>
+          <fieldset class="qstep" data-step="1">
+            <legend class="qstep__title">Что подключаем к резерву?</legend>
+            <p class="qstep__hint">Выберите один вариант</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="object" value="Загородный дом"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Загородный дом<span class="opt__sub">до 500 м²</span></span></label>
+            <label class="opt"><input type="radio" name="object" value="Большой дом с хозяйственными постройками"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Большой дом с хозяйственными постройками<span class="opt__sub">гостевой дом, баня, гараж</span></span></label>
+            <label class="opt"><input type="radio" name="object" value="Коттеджный посёлок"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Коттеджный посёлок<span class="opt__sub">несколько домов или общие сети</span></span></label>
+            <label class="opt"><input type="radio" name="object" value="Коммерческий или промышленный объект"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Коммерческий или промышленный объект<span class="opt__sub">отель, офис, склад, производство</span></span></label>
+          </div>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="2" hidden>
+            <legend class="qstep__title">Что должно работать при отключении?</legend>
+            <p class="qstep__hint">Можно выбрать несколько вариантов</p>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="loads" value="Весь дом целиком"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Весь дом целиком</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Отопление и котельная"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Отопление и котельная</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Скважина, насосы, вентиляция"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Скважина, насосы, вентиляция</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Кондиционеры и тёплые полы"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Кондиционеры и тёплые полы</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Бассейн и спа"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Бассейн и спа</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Кухня и бытовая техника"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Кухня и бытовая техника</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Серверная, охрана, видеонаблюдение"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Серверная, охрана, видеонаблюдение</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Зарядка электромобиля"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Зарядка электромобиля</span></label>
+            <label class="opt"><input type="checkbox" name="loads" value="Производственное оборудование"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Производственное оборудование</span></label>
+          </div>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="3" hidden>
+            <legend class="qstep__title">Какая мощность нужна?</legend>
+            <p class="qstep__hint">Если знаете нагрузку, укажите её. Не знаете — рассчитаем по вашему перечню</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="power" value="До 15 кВт"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">До 15 кВт<span class="opt__sub">часть нагрузок</span></span></label>
+            <label class="opt"><input type="radio" name="power" value="15–30 кВт"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">15–30 кВт<span class="opt__sub">дом целиком</span></span></label>
+            <label class="opt"><input type="radio" name="power" value="30–100 кВт"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">30–100 кВт<span class="opt__sub">большой дом и хозблоки</span></span></label>
+            <label class="opt"><input type="radio" name="power" value="100–500 кВт"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">100–500 кВт<span class="opt__sub">посёлок, отель, коммерция</span></span></label>
+            <label class="opt"><input type="radio" name="power" value="500–1500 кВт"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">500–1500 кВт<span class="opt__sub">производство, крупные объекты</span></span></label>
+            <label class="opt"><input type="radio" name="power" value="Не знаю"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Не знаю<span class="opt__sub">рассчитайте по перечню</span></span></label>
+          </div>
+            <label class="field field--kw"><span>Или назовите свою мощность, кВт</span>
+              <input id="quiz-kw" type="number" name="kw" min="1" max="5000" inputmode="numeric" placeholder="Например, 45"></label>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="4" hidden>
+            <legend class="qstep__title">Сколько часов дом живёт без сети?</legend>
+            <p class="qstep__hint">От этого зависит ёмкость батарей</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="autonomy" value="До 2 часов"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">До 2 часов<span class="opt__sub">короткие отключения</span></span></label>
+            <label class="opt"><input type="radio" name="autonomy" value="2–8 часов"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">2–8 часов<span class="opt__sub">вечер и ночь</span></span></label>
+            <label class="opt"><input type="radio" name="autonomy" value="8–24 часа"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">8–24 часа<span class="opt__sub">сутки без света</span></span></label>
+            <label class="opt"><input type="radio" name="autonomy" value="Больше суток"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Больше суток<span class="opt__sub">длительная автономная работа</span></span></label>
+            <label class="opt"><input type="radio" name="autonomy" value="Не знаю"><span class="opt__mark" aria-hidden="true"></span><span class="opt__text">Не знаю<span class="opt__sub">подскажите</span></span></label>
+          </div>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="5" hidden>
+            <legend class="qstep__title">Куда прислать расчёт?</legend>
+            <p class="qstep__hint">Инженер свяжется и уточнит детали по вашему объекту</p>
+            <div class="qfields">
+              <label class="field"><span>Имя</span><input id="quiz-name" type="text" name="name" autocomplete="name"></label>
+              <label class="field"><span>Телефон</span><input id="quiz-phone" type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" data-phone></label>
+            </div>
+            <p class="qlabel">Как с вами связаться</p>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="channel" value="Звонок"><span>Звонок</span></label>
+            <label class="chip"><input type="radio" name="channel" value="Max"><span>Max</span></label>
+            <label class="chip"><input type="radio" name="channel" value="Telegram"><span>Telegram</span></label>
+          </div>
+            <p class="qlabel">Когда планируете установку</p>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="when" value="Срочно"><span>Срочно</span></label>
+            <label class="chip"><input type="radio" name="when" value="В течение месяца"><span>В течение месяца</span></label>
+            <label class="chip"><input type="radio" name="when" value="Пока изучаю"><span>Пока изучаю</span></label>
+          </div>
+            <label class="check"><input type="checkbox" name="consent">
+              <span>Согласен на <a href="https://e-systems.su/personal-data-consent" target="_blank" rel="noopener">обработку персональных данных</a></span></label>
+            <label class="check"><input type="checkbox" name="policy">
+              <span>Ознакомлен с <a href="https://e-systems.su/privacy" target="_blank" rel="noopener">политикой конфиденциальности</a></span></label>
+          </fieldset>
+
+          <div class="quiz__done" data-quiz-done hidden tabindex="-1">
+            <h3 class="qstep__title">Ваша предварительная конфигурация</h3>
+            <dl class="summary">
+              <div><dt>Объект</dt><dd data-sum="object"></dd></div>
+              <div><dt>Резервируем</dt><dd data-sum="loads"></dd></div>
+              <div><dt>Мощность</dt><dd data-sum="power"></dd></div>
+              <div><dt>Автономность</dt><dd data-sum="autonomy"></dd></div>
+            </dl>
+            <p class="quiz__done-note">Точный состав и стоимость инженер пришлёт после уточнения нагрузки. Заявка отправлена.</p>
+          </div>
+
+          <p class="quiz__error" data-quiz-error hidden></p>
+
+          <div class="quiz__foot" data-quiz-foot>
+            <span class="quiz__step">Шаг: <b data-quiz-n>1</b>/5</span>
+            <div class="quiz__nav">
+              <button class="quiz__back" type="button" data-quiz-back aria-label="Назад" hidden>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+              </button>
+              <button class="btn-pill btn-pill--quiz" type="button" data-quiz-next disabled>
+                <span data-quiz-next-text>Далее</span>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <aside class="quiz__side">
+        <img class="manager__photo" src="assets/manager.jpg" alt="Инженер-проектировщик" width="240" height="240">
+        <!-- TODO: имя и должность менеджера не подтверждены заказчиком; фото настоящее -->
+        <div class="manager__bubble" aria-live="polite">
+          <b>Инженер-проектировщик</b>
+          <span class="manager__role">Энергосистемы</span>
+          <p data-manager-text>Расскажите об объекте — от этого зависит мощность и схема подключения.</p>
+        </div>
+        <div class="quiz__aside-text">
+          <p class="quiz__aside-title">Четыре вопроса — и мы соберём исходные данные для расчёта.</p>
+          <p class="quiz__aside-sub">Никаких обязательств: это ориентир по вашему объекту.</p>
+          <div class="quiz__msg">
+            <a class="msg msg--max" href="https://max.ru/" aria-label="Написать в Max" target="_blank" rel="noopener"><svg viewBox="0 0 100 100" width="18" height="18" fill="#fff" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M50.76 0.26C78.29 0.26 99.89 22.6 99.89 50.15C99.89 77.7 77.61 99.49 51.02 99.49C41.59 99.49 37.01 98.16 29.65 92.95C29.14 92.59 28.45 92.68 28.02 93.14C22.36 99.18 7.85 103.43 7.19 95.18C7.19 80.79 0 71.45 0 49.88C0 21.55 23.22 0.26 50.76 0.26ZM51.53 24.81C38.46 24.13 28.26 33.2 26.01 47.38C24.15 59.13 27.45 73.45 30.28 74.18C31.48 74.48 34.36 72.28 36.46 70.3C36.85 69.93 37.45 69.86 37.91 70.15C41.18 72.15 44.88 73.65 48.96 73.86C62.37 74.56 74.26 64.06 74.96 50.65C75.66 37.23 64.94 25.5 51.53 24.8V24.81Z"/></svg></a>
+            <a class="msg msg--tg" href="https://t.me/" aria-label="Написать в Telegram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10l-4 4 6 6 4-16-18 7 4 2 2 6 3-4"/></svg></a>
+            <span>или напишите в мессенджер</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <!-- липкая кнопка на телефоне -->
 <div class="sticky-cta" data-sticky>
-  <button class="btn-pill btn-pill--sm" type="button" data-callback-open data-callback-title="Рассчитать стоимость ИБП" data-callback-text="Скажите, что должно работать без света, и мы подберём мощность и ёмкость батарей. Без обязательств">
+  <a class="btn-pill btn-pill--sm" href="#quiz">
     <span>Рассчитать стоимость</span>
-  </button>
+  </a>
 </div>
 
 <!-- ============ ОКНО «ЗАКАЗАТЬ ЗВОНОК» (одно на все кнопки) ============ -->

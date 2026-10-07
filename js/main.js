@@ -83,9 +83,8 @@
     modal.addEventListener('click', function (e) { if (e.target === modal) shut(); });
   }
 
-  /* маска телефона: +7 (999) 000-00-00 */
-  var phone = $('[data-phone]');
-  if (phone) {
+  /* маска телефона: +7 (999) 000-00-00 — одна на все формы */
+  $$('[data-phone]').forEach(function (phone) {
     phone.addEventListener('input', function () {
       var d = phone.value.replace(/\D/g, '');
       if (d[0] === '8' || d[0] === '7') d = d.slice(1);
@@ -96,7 +95,7 @@
       if (d.length >= 8) s += '-' + d.slice(8, 10);
       phone.value = s;
     });
-  }
+  });
 
   /* кнопка «Отправить» — обычная кнопка, не submit: в изолированной рамке форма не уходит */
   var submit = $('[data-modal-submit]');
@@ -121,15 +120,146 @@
   /* ---------- липкая кнопка на телефоне: прячется, пока видна кнопка в первом экране ---------- */
   var sticky = $('[data-sticky]');
   var heroBtn = $('.hero__cta .btn-pill');
+  var quizBox = $('#quiz');
+  var inView = function (el) {
+    if (!el) return false;
+    var r = el.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight;
+  };
   if (sticky && heroBtn) {
     var update = function () {
-      var r = heroBtn.getBoundingClientRect();
-      var visible = r.bottom > 0 && r.top < window.innerHeight;
-      sticky.classList.toggle('is-visible', !visible);
+      // прячем, пока на экране есть своя кнопка или сам опрос
+      sticky.classList.toggle('is-visible', !inView(heroBtn) && !inView(quizBox));
     };
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
     update();
+  }
+
+  /* ---------- опрос: 4 вопроса о нагрузке и контакт ---------- */
+  var quiz = $('[data-quiz]');
+  if (quiz) {
+    var qform = $('[data-quiz-form]', quiz);
+    var qsteps = $$('.qstep', quiz);
+    var qbar = $('[data-quiz-bar]', quiz);
+    var qn = $('[data-quiz-n]', quiz);
+    var qnext = $('[data-quiz-next]', quiz);
+    var qnextText = $('[data-quiz-next-text]', quiz);
+    var qback = $('[data-quiz-back]', quiz);
+    var qerr = $('[data-quiz-error]', quiz);
+    var qdone = $('[data-quiz-done]', quiz);
+    var mgr = $('[data-manager-text]', quiz);
+    var kwInput = $('#quiz-kw', quiz);
+    var cur = 0;
+    var last = qsteps.length - 1;
+
+    var replies = [
+      'Расскажите об объекте: от этого зависят мощность и схема подключения.',
+      'Отметьте всё, что должно работать без сети. По этому перечню считаем нагрузку и ёмкость батарей.',
+      'Мощность — главный параметр. Не знаете точно, выберите «Не знаю»: посчитаем по вашему перечню.',
+      'Чем дольше автономность, тем больше батарей. Подберём баланс под вашу нагрузку.',
+      'Остался контакт. Расчёт пришлю тем способом связи, который вы выберете.'
+    ];
+    // TODO: подтвердить у заказчика нижнюю границу мощности (сейчас 15 кВт)
+    var softFilter = 'Мы специализируемся на системах от 15 кВт — это наш профиль. Заявку всё равно приму и подскажу решение.';
+
+    var checked = function (name) { return $$('input[name="' + name + '"]:checked', qform); };
+    var one = function (name) { var c = checked(name)[0]; return c ? c.value : ''; };
+    var kw = function () { return parseFloat((kwInput.value || '').replace(',', '.')) || 0; };
+    var phoneOk = function () { return form_digits() === 11; };
+    var form_digits = function () { return qform.elements.phone.value.replace(/\D/g, '').length; };
+
+    var valid = function (i) {
+      if (i === 0) return !!one('object');
+      if (i === 1) return checked('loads').length > 0;
+      if (i === 2) return !!one('power') || kw() > 0;
+      if (i === 3) return !!one('autonomy');
+      return true;
+    };
+    var finalProblem = function () {
+      if (!qform.elements.name.value.trim()) return 'Укажите имя';
+      if (!phoneOk()) return 'Введите телефон полностью';
+      if (!qform.elements.consent.checked || !qform.elements.policy.checked) return 'Отметьте обе галочки — без них заявку не отправить';
+      return '';
+    };
+
+    var say = function (t) {
+      mgr.textContent = t;
+      mgr.classList.remove('is-swap'); void mgr.offsetWidth; mgr.classList.add('is-swap');
+    };
+    var powerSmall = function () { return one('power') === 'До 15 кВт' || (kw() > 0 && kw() < 15); };
+
+    var render = function () {
+      qsteps.forEach(function (s, i) { s.hidden = i !== cur; });
+      qbar.style.width = ((cur + 1) / qsteps.length * 100) + '%';
+      qn.textContent = cur + 1;
+      qback.hidden = cur === 0;
+      qnextText.textContent = cur === last ? 'Получить расчёт' : 'Далее';
+      qnext.disabled = cur < last && !valid(cur);
+      qerr.hidden = true;
+      say(cur === 2 && powerSmall() ? softFilter : replies[cur]);
+    };
+    var refresh = function () {
+      qnext.disabled = cur < last && !valid(cur);
+      if (cur === 2) say(powerSmall() ? softFilter : replies[2]);
+    };
+
+    qform.addEventListener('change', function (e) {
+      if (e.target.name === 'power') kwInput.value = '';
+      refresh();
+    });
+    kwInput.addEventListener('input', function () {
+      if (kwInput.value) $$('input[name="power"]', qform).forEach(function (r) { r.checked = false; });
+      refresh();
+    });
+    qback.addEventListener('click', function () { if (cur > 0) { cur--; render(); } });
+
+    var finish = function () {
+      var power = kw() > 0 ? String(kw()).replace('.', ',') + ' кВт' : one('power');
+      var loads = checked('loads').map(function (c) { return c.value; });
+      var sum = {
+        object: one('object'),
+        loads: loads.join(', '),
+        power: power,
+        autonomy: one('autonomy')
+      };
+      Object.keys(sum).forEach(function (k) { $('[data-sum="' + k + '"]', quiz).textContent = sum[k]; });
+      // TODO: отправка на POST /api/lead; формат — раздел 11 мастер-промта (поля name, contact, service, answers[])
+      var lead = {
+        type: 'service', name: qform.elements.name.value.trim(), contact: qform.elements.phone.value,
+        service: 'Опрос по ИБП',
+        answers: [
+          { label: 'Объект', value: sum.object }, { label: 'Резервируем', value: sum.loads },
+          { label: 'Мощность', value: sum.power }, { label: 'Автономность', value: sum.autonomy },
+          { label: 'Способ связи', value: one('channel') || 'не указан' }, { label: 'Срок установки', value: one('when') || 'не указан' }
+        ],
+        consent: true
+      };
+      if (window.console) console.log('lead', lead);
+      qsteps.forEach(function (s) { s.hidden = true; });
+      qdone.hidden = false;
+      quiz.classList.add('is-done');
+      qbar.style.width = '100%';
+      qerr.hidden = true;
+      say('Заявка принята. Свяжусь с вами выбранным способом и уточню нагрузку.');
+      qdone.focus({ preventScroll: true });
+    };
+
+    // «Далее» — обычная кнопка, не submit: в изолированной рамке форма не отправляется
+    qnext.addEventListener('click', function () {
+      if (cur < last) {
+        if (!valid(cur)) return;
+        cur++; render();
+        return;
+      }
+      var p = finalProblem();
+      qerr.hidden = !p; qerr.textContent = p;
+      if (!p) finish();
+    });
+    qform.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type !== 'checkbox') { e.preventDefault(); if (!qnext.disabled) qnext.click(); }
+    });
+    render();
   }
 
   /* ---------- первый экран: один сценарий «сеть пропала — дом на батарее» ---------- */
