@@ -22,7 +22,7 @@
 
     <!-- пункты ведут к блокам, которые появятся по одному; пока якоря без цели -->
     <nav class="nav" aria-label="Основное меню">
-      <a href="#solutions">Решения</a>
+      <a href="#advantages">Преимущества</a>
       <a href="#process">Как работаем</a>
       <a href="#prices">Цены</a>
       <a href="#projects">Объекты</a>
@@ -65,7 +65,7 @@
   <!-- меню на узких экранах: все разделы целиком -->
   <div class="drawer" id="drawer" hidden data-drawer>
     <nav aria-label="Меню для телефона">
-      <a href="#solutions">Решения</a>
+      <a href="#advantages">Преимущества</a>
       <a href="#process">Как работаем</a>
       <a href="#prices">Цены</a>
       <a href="#projects">Объекты</a>
@@ -472,6 +472,63 @@
         <span>Вызвать инженера на объект</span>
         <span class="btn-pill__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
       </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ БЛОК 5 — ПРЕИМУЩЕСТВА ============ -->
+<!-- TODO: подтвердить у заказчика пункты про заземление, лотки и монтаж силами инженеров; сравнение без названий конкурентов, должно быть проверяемым -->
+<section class="section section--adv" id="advantages" data-adv-block>
+  <div class="container">
+    <h2 class="section__title">
+      <span class="muted">Типовой комплект собирают из каталога —</span>
+      инженерный проект считают под ваш объект
+    </h2>
+
+    <div class="adv-grid">
+      <figure class="cmp" data-cmp>
+        <img class="cmp__img" src="assets/adv-typical.jpg" alt="Типовая установка ИБП: кабели свисают, нет лотков и маркировки" width="1100" height="1100">
+        <div class="cmp__top" data-cmp-top>
+          <img class="cmp__img" src="assets/adv-project.jpg" alt="Инженерный проект: кабельные лотки, щит с автоматикой, заземляющая шина" width="1100" height="1100">
+        <button class="spot" type="button" style="--x:31%;--y:23%" data-spot="0" aria-label="Мощность ИБП по расчёту нагрузки"><i></i></button>
+        <button class="spot" type="button" style="--x:63%;--y:25%" data-spot="1" aria-label="Ёмкость АКБ под нужное время автономии"><i></i></button>
+        <button class="spot" type="button" style="--x:43%;--y:50%" data-spot="2" aria-label="Щит и защитная автоматика по схеме"><i></i></button>
+        <button class="spot" type="button" style="--x:44%;--y:58%" data-spot="3" aria-label="Заземление и защита по проекту"><i></i></button>
+        <button class="spot" type="button" style="--x:62%;--y:66%" data-spot="4" aria-label="Кабельные трассы в лотках"><i></i></button>
+        <button class="spot" type="button" style="--x:25%;--y:40%" data-spot="5" aria-label="Цена в договоре, монтаж силами инженеров"><i></i></button>
+        </div>
+        <span class="cmp__tag cmp__tag--l">Типовой комплект</span>
+        <span class="cmp__tag cmp__tag--r">Инженерный проект</span>
+        <i class="cmp__line" data-cmp-line aria-hidden="true"><b aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></b></i>
+        <input class="cmp__range" type="range" min="0" max="100" value="50" step="0.1" aria-label="Сравнить типовой комплект и инженерный проект" data-cmp-range>
+      </figure>
+
+      <ol class="advs">
+        <li class="adv" data-adv="0" tabindex="0">
+          <b>Мощность ИБП по расчёту нагрузки</b>
+          <span>В типовом комплекте: подбор из готовых типоразмеров</span>
+        </li>
+        <li class="adv" data-adv="1" tabindex="0">
+          <b>Ёмкость АКБ под нужное время автономии</b>
+          <span>В типовом комплекте: ёмкость задана комплектом</span>
+        </li>
+        <li class="adv" data-adv="2" tabindex="0">
+          <b>Щит и защитная автоматика по схеме</b>
+          <span>В типовом комплекте: щит без привязки к вашему вводу</span>
+        </li>
+        <li class="adv" data-adv="3" tabindex="0">
+          <b>Заземление и защита по проекту</b>
+          <span>В типовом комплекте: часто остаются за скобками</span>
+        </li>
+        <li class="adv" data-adv="4" tabindex="0">
+          <b>Кабельные трассы в лотках</b>
+          <span>В типовом комплекте: кабели свисают, доступ затруднён</span>
+        </li>
+        <li class="adv" data-adv="5" tabindex="0">
+          <b>Цена в договоре, монтаж силами инженеров</b>
+          <span>В типовом комплекте: стоимость монтажа «ориентировочная»</span>
+        </li>
+      </ol>
     </div>
   </div>
 </section>

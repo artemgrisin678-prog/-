@@ -382,6 +382,54 @@
     inProc();
   }
 
+  /* ---------- «Преимущества»: ползунок «типовой комплект / проект» ---------- */
+  var cmp = $('[data-cmp]');
+  if (cmp) {
+    var range = $('[data-cmp-range]', cmp);
+    var spots = $$('.spot', cmp);
+    var advs = $$('.adv');
+    var setPos = function (v) {
+      cmp.style.setProperty('--pos', v + '%');
+      spots.forEach(function (s) {
+        var x = parseFloat(s.style.getPropertyValue('--x'));
+        s.classList.toggle('is-on', x > v);
+      });
+    };
+    var anim = null;
+    var cancel = function () { if (anim) { cancelAnimationFrame(anim); anim = null; } };
+    range.addEventListener('input', function () { cancel(); setPos(parseFloat(range.value)); });
+    range.addEventListener('pointerdown', cancel);
+    // подсветка точки при наведении на строку и обратно
+    advs.forEach(function (li, i) {
+      var on = function () { li.classList.add('is-hot'); spots[i].classList.add('is-lit'); };
+      var off = function () { li.classList.remove('is-hot'); spots[i].classList.remove('is-lit'); };
+      li.addEventListener('mouseenter', on); li.addEventListener('mouseleave', off);
+      li.addEventListener('focus', on); li.addEventListener('blur', off);
+    });
+    setPos(50);
+    // один раз при появлении: разделитель проезжает с правого края на место и открывает точки по очереди
+    var played = false;
+    var play = function () {
+      if (played) return; played = true;
+      if (reduced) return;
+      var from = 98, to = 40, dur = 2600, t0 = performance.now();
+      var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
+      var step = function (now) {
+        var t = Math.min(1, (now - t0) / dur), v = from + (to - from) * ease(t);
+        range.value = v; setPos(v);
+        anim = t < 1 ? requestAnimationFrame(step) : null;
+      };
+      setPos(from); range.value = from; anim = requestAnimationFrame(step);
+    };
+    var check = function () {
+      var r = cmp.getBoundingClientRect();
+      if (r.top < window.innerHeight * .7 && r.bottom > window.innerHeight * .3) play();
+    };
+    if ('IntersectionObserver' in window) new IntersectionObserver(check, { threshold: [0, .4] }).observe(cmp);
+    window.addEventListener('scroll', check, { passive: true });
+    check();
+  }
+
   /* ---------- первый экран: один сценарий «сеть пропала — дом на батарее» ---------- */
   var hero = $('[data-hero]');
   var card = $('[data-status-card]');

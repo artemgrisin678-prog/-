@@ -563,6 +563,78 @@ main > .section:last-child { padding-bottom: 120px; }
 
 .process__cta { margin-top: 64px; display: flex; justify-content: center; }
 
+/* ============ БЛОК 5 — ПРЕИМУЩЕСТВА ============ */
+.section--adv { position: relative; }
+.section--adv::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 240px; pointer-events: none;
+  background: linear-gradient(180deg, #0B0D11 0%, rgba(11, 13, 17, .86) 14%, rgba(11, 13, 17, .6) 30%, rgba(11, 13, 17, .34) 48%, rgba(11, 13, 17, .14) 68%, rgba(11, 13, 17, .04) 86%, rgba(11, 13, 17, 0) 100%);
+}
+.section--adv > .container { position: relative; }
+.section--dark.process { padding-bottom: 150px; }
+.section--adv { padding-top: 160px; }
+.adv-grid { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+
+.cmp {
+  position: relative; margin: 0; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 32px; isolation: isolate;
+  background: #1a1d22; box-shadow: 0 30px 80px rgba(20, 23, 28, .18);
+  --pos: 50%;
+}
+.cmp__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
+.cmp__top { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--pos)); }
+.cmp__line {
+  position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff;
+  box-shadow: 0 0 0 1px rgba(20, 23, 28, .12), 0 0 30px rgba(255, 255, 255, .6); pointer-events: none;
+}
+.cmp__line b {
+  position: absolute; top: 50%; left: 50%; width: 52px; height: 52px; translate: -50% -50%; border-radius: 50%;
+  display: grid; place-items: center; background: var(--accent); color: #14171C; box-shadow: 0 8px 28px rgba(20, 23, 28, .35);
+}
+.cmp__tag {
+  position: absolute; top: 20px; z-index: 2; padding: 9px 16px; border-radius: 999px; font-size: 13.5px; font-weight: 700;
+  background: rgba(10, 12, 16, .62); color: #F2F1EC; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transition: opacity .3s;
+}
+.cmp__tag--l { left: 20px; }
+.cmp__tag--r { right: 20px; background: var(--accent); color: #14171C; }
+.cmp__range {
+  position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize;
+  -webkit-appearance: none; appearance: none; background: transparent; touch-action: pan-y;
+}
+.cmp__range::-webkit-slider-thumb { -webkit-appearance: none; width: 56px; height: 100vh; }
+.cmp__range::-moz-range-thumb { width: 56px; height: 100vh; border: 0; background: transparent; }
+.cmp:has(:focus-visible) { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* точки на стороне «проект»: появляются, когда разделитель проходит мимо */
+.spot {
+  position: absolute; left: var(--x); top: var(--y); width: 30px; height: 30px; margin: -15px 0 0 -15px; padding: 0; border: 0;
+  background: none; z-index: 2; pointer-events: none; opacity: 0; transform: scale(.4);
+  transition: opacity .45s ease, transform .55s cubic-bezier(.3, 1.5, .5, 1);
+}
+.spot.is-on { opacity: 1; transform: none; }
+.spot i {
+  position: absolute; inset: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(255, 255, 255, .85), 0 4px 14px rgba(20, 23, 28, .4);
+}
+.spot i::after {
+  content: ""; position: absolute; inset: -9px; border-radius: 50%; border: 2px solid var(--accent); opacity: 0;
+}
+.spot.is-lit i::after { animation: ring 1.4s ease-out infinite; }
+@keyframes ring { 0% { transform: scale(.55); opacity: .9; } 100% { transform: scale(1.3); opacity: 0; } }
+
+.advs { margin: 0; }
+.adv {
+  position: relative; padding: 22px 0 22px 28px; border-top: 1px solid var(--line); cursor: default; outline: none;
+  transition: padding .35s ease;
+}
+.adv:last-child { border-bottom: 1px solid var(--line); }
+.adv::before {
+  content: ""; position: absolute; left: 0; top: 24px; width: 10px; height: 10px; border-radius: 50%;
+  border: 2px solid var(--line-strong); transition: background .3s, border-color .3s, transform .3s;
+}
+.adv b { display: block; font-size: 20px; line-height: 1.25; letter-spacing: -.01em; font-weight: 700; }
+.adv span { display: block; margin-top: 6px; font-size: 15px; line-height: 1.45; color: var(--muted); transition: color .3s; }
+.adv.is-hot::before, .adv:hover::before, .adv:focus-visible::before { background: var(--accent); border-color: var(--accent); transform: scale(1.3); }
+.adv.is-hot, .adv:hover, .adv:focus-visible { padding-left: 38px; }
+
 /* ============ ЛИПКАЯ КНОПКА НА ТЕЛЕФОНЕ ============ */
 .sticky-cta {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: none;
@@ -684,7 +756,18 @@ main > .section:last-child { padding-bottom: 120px; }
   .process__cta { margin-top: 40px; }
   .process__cta .btn-pill { width: 100%; }
 }
+@media (max-width: 1100px) {
+  .adv-grid { grid-template-columns: 1fr; gap: 40px; }
+  .cmp { max-width: 720px; margin-inline: auto; width: 100%; }
+}
 @media (max-width: 768px) {
+  .section--adv { padding-top: 170px; }
+  .section--adv::before { height: 150px; }
+  .section--dark.process { padding-bottom: 96px; }
+  .cmp { border-radius: 24px; }
+  .cmp__tag { top: 12px; padding: 7px 12px; font-size: 12.5px; }
+  .cmp__tag--l { left: 12px; } .cmp__tag--r { right: 12px; }
+  .adv b { font-size: 18px; }
   .client { flex-basis: 288px; min-height: 220px; padding: 24px; }
   .client__name { font-size: 21px; }
   .section { padding-block: 72px 0; }
@@ -706,6 +789,7 @@ main > .section:last-child { padding-bottom: 120px; }
 /* ============ БЕЗ ДВИЖЕНИЯ ============ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .spot { opacity: 1 !important; transform: none !important; }
   .chapter.is-active img { transform: none; }
   .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
