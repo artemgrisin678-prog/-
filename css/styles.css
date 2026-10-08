@@ -620,20 +620,25 @@ main > .section:last-child { padding-bottom: 120px; }
 .spot.is-lit i::after { animation: ring 1.4s ease-out infinite; }
 @keyframes ring { 0% { transform: scale(.55); opacity: .9; } 100% { transform: scale(1.3); opacity: 0; } }
 
-.advs { margin: 0; }
+.advs { min-width: 0; }
+.advs__head, .adv { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; }
+.advs__head { padding: 0 20px 14px; font-size: 14px; font-weight: 700; color: var(--muted); }
+.advs__head span:last-child { color: var(--accent-ink); }
+.advs__list { margin: 0; display: grid; gap: 8px; }
 .adv {
-  position: relative; padding: 22px 0 22px 28px; border-top: 1px solid var(--line); cursor: default; outline: none;
-  transition: padding .35s ease;
+  position: relative; padding: 16px 20px 18px; border-radius: 20px; background: var(--surface); outline: none;
+  transition: background .3s, box-shadow .3s, transform .3s;
 }
-.adv:last-child { border-bottom: 1px solid var(--line); }
-.adv::before {
-  content: ""; position: absolute; left: 0; top: 24px; width: 10px; height: 10px; border-radius: 50%;
-  border: 2px solid var(--line-strong); transition: background .3s, border-color .3s, transform .3s;
-}
-.adv b { display: block; font-size: 20px; line-height: 1.25; letter-spacing: -.01em; font-weight: 700; }
-.adv span { display: block; margin-top: 6px; font-size: 15px; line-height: 1.45; color: var(--muted); transition: color .3s; }
-.adv.is-hot::before, .adv:hover::before, .adv:focus-visible::before { background: var(--accent); border-color: var(--accent); transform: scale(1.3); }
-.adv.is-hot, .adv:hover, .adv:focus-visible { padding-left: 38px; }
+.adv__t { grid-column: 1 / -1; margin-bottom: 8px; font-size: 18px; line-height: 1.25; letter-spacing: -.01em; font-weight: 700; color: var(--text); }
+.adv__bad, .adv__good { position: relative; padding-left: 26px; font-size: 15.5px; line-height: 1.4; }
+.adv__bad { color: var(--text-2); }
+.adv__good { color: var(--text); font-weight: 600; }
+.adv__bad i, .adv__good i { position: absolute; left: 0; top: 2px; width: 18px; height: 18px; border-radius: 50%; }
+.adv__bad i { background: #E7D5D3; }
+.adv__bad i::after { content: ""; position: absolute; left: 4px; right: 4px; top: 8px; height: 2px; background: #B4443C; border-radius: 2px; }
+.adv__good i { background: var(--accent); }
+.adv__good i::after { content: ""; position: absolute; left: 6px; top: 3px; width: 5px; height: 9px; border: solid #14171C; border-width: 0 2px 2px 0; rotate: 45deg; }
+.adv.is-hot, .adv:hover, .adv:focus-visible { background: #fff; box-shadow: 0 0 0 2px var(--accent), 0 14px 34px rgba(20, 23, 28, .1); transform: translateX(4px); }
 
 /* ============ ЛИПКАЯ КНОПКА НА ТЕЛЕФОНЕ ============ */
 .sticky-cta {
@@ -760,6 +765,11 @@ main > .section:last-child { padding-bottom: 120px; }
   .adv-grid { grid-template-columns: 1fr; gap: 40px; }
   .cmp { max-width: 720px; margin-inline: auto; width: 100%; }
 }
+@media (max-width: 560px) {
+  .advs__head { display: none; }
+  .adv { grid-template-columns: 1fr; row-gap: 6px; }
+  .adv.is-hot, .adv:hover { transform: none; }
+}
 @media (max-width: 768px) {
   .section--adv { padding-top: 170px; }
   .section--adv::before { height: 150px; }
@@ -767,7 +777,6 @@ main > .section:last-child { padding-bottom: 120px; }
   .cmp { border-radius: 24px; }
   .cmp__tag { top: 12px; padding: 7px 12px; font-size: 12.5px; }
   .cmp__tag--l { left: 12px; } .cmp__tag--r { right: 12px; }
-  .adv b { font-size: 18px; }
   .client { flex-basis: 288px; min-height: 220px; padding: 24px; }
   .client__name { font-size: 21px; }
   .section { padding-block: 72px 0; }

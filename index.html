@@ -503,32 +503,41 @@
         <input class="cmp__range" type="range" min="0" max="100" value="50" step="0.1" aria-label="Сравнить типовой комплект и инженерный проект" data-cmp-range>
       </figure>
 
-      <ol class="advs">
-        <li class="adv" data-adv="0" tabindex="0">
-          <b>Мощность ИБП по расчёту нагрузки</b>
-          <span>В типовом комплекте: подбор из готовых типоразмеров</span>
+      <div class="advs">
+        <div class="advs__head" aria-hidden="true"><span>Типовой комплект</span><span>Инженерный проект</span></div>
+        <ol class="advs__list">
+          <li class="adv" data-adv="0" tabindex="0">
+            <b class="adv__t">Мощность ИБП</b>
+            <span class="adv__bad"><i aria-hidden="true"></i>Из готовых типоразмеров</span>
+            <span class="adv__good"><i aria-hidden="true"></i>По расчёту нагрузки</span>
         </li>
-        <li class="adv" data-adv="1" tabindex="0">
-          <b>Ёмкость АКБ под нужное время автономии</b>
-          <span>В типовом комплекте: ёмкость задана комплектом</span>
+            <li class="adv" data-adv="1" tabindex="0">
+            <b class="adv__t">Ёмкость АКБ</b>
+            <span class="adv__bad"><i aria-hidden="true"></i>Задана комплектом</span>
+            <span class="adv__good"><i aria-hidden="true"></i>Под нужное время автономии</span>
         </li>
-        <li class="adv" data-adv="2" tabindex="0">
-          <b>Щит и защитная автоматика по схеме</b>
-          <span>В типовом комплекте: щит без привязки к вашему вводу</span>
+            <li class="adv" data-adv="2" tabindex="0">
+            <b class="adv__t">Щит и автоматика</b>
+            <span class="adv__bad"><i aria-hidden="true"></i>Без привязки к вашему вводу</span>
+            <span class="adv__good"><i aria-hidden="true"></i>По схеме вашего объекта</span>
         </li>
-        <li class="adv" data-adv="3" tabindex="0">
-          <b>Заземление и защита по проекту</b>
-          <span>В типовом комплекте: часто остаются за скобками</span>
+            <li class="adv" data-adv="3" tabindex="0">
+            <b class="adv__t">Заземление</b>
+            <span class="adv__bad"><i aria-hidden="true"></i>Часто остаётся за скобками</span>
+            <span class="adv__good"><i aria-hidden="true"></i>Выполняем по проекту</span>
         </li>
-        <li class="adv" data-adv="4" tabindex="0">
-          <b>Кабельные трассы в лотках</b>
-          <span>В типовом комплекте: кабели свисают, доступ затруднён</span>
+            <li class="adv" data-adv="4" tabindex="0">
+            <b class="adv__t">Кабельные трассы</b>
+            <span class="adv__bad"><i aria-hidden="true"></i>Кабели свисают, доступ затруднён</span>
+            <span class="adv__good"><i aria-hidden="true"></i>В лотках, доступ свободный</span>
         </li>
-        <li class="adv" data-adv="5" tabindex="0">
-          <b>Цена в договоре, монтаж силами инженеров</b>
-          <span>В типовом комплекте: стоимость монтажа «ориентировочная»</span>
+            <li class="adv" data-adv="5" tabindex="0">
+            <b class="adv__t">Цена и монтаж</b>
+            <span class="adv__bad"><i aria-hidden="true"></i>Монтаж «ориентировочно»</span>
+            <span class="adv__good"><i aria-hidden="true"></i>Цена в договоре, монтаж инженерами</span>
         </li>
-      </ol>
+        </ol>
+      </div>
     </div>
   </div>
 </section>
