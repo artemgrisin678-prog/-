@@ -129,7 +129,7 @@
   if (sticky && heroBtn) {
     var update = function () {
       // прячем, пока на экране есть своя кнопка или сам опрос
-      sticky.classList.toggle('is-visible', !inView(heroBtn) && !inView(quizBox));
+      sticky.classList.toggle('is-visible', !inView(heroBtn) && !inView(quizBox) && !inView($('.pcard__cta .btn-pill')));
     };
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
@@ -428,6 +428,41 @@
     if ('IntersectionObserver' in window) new IntersectionObserver(check, { threshold: [0, .4] }).observe(cmp);
     window.addEventListener('scroll', check, { passive: true });
     check();
+  }
+
+  /* ---------- «Цены»: сумма набирается, полоса заполняется один раз при появлении ---------- */
+  var prices = $('[data-prices]');
+  if (prices) {
+    var fmt = function (n) { return new Intl.NumberFormat('ru-RU').format(Math.round(n)).replace(/ | /g, ' '); };
+    var counters = $$('[data-count]', prices);
+    var bar = $('.pbar', prices);
+    var done = false;
+    var run = function () {
+      if (done) return; done = true;
+      if (reduced) return;
+      var t0 = performance.now(), dur = 1700;
+      bar.classList.add('is-armed');
+      void bar.offsetWidth;
+      requestAnimationFrame(function () { bar.classList.remove('is-armed'); });
+      var ease = function (t) { return 1 - Math.pow(1 - t, 4); };
+      var step = function (now) {
+        var t = Math.min(1, (now - t0) / dur);
+        counters.forEach(function (el) {
+          var target = parseFloat(el.getAttribute('data-count'));
+          el.textContent = fmt(target * ease(t)) + (el.tagName === 'DD' ? ' ₽' : '');
+        });
+        if (t < 1) requestAnimationFrame(step);
+      };
+      counters.forEach(function (el) { el.textContent = '0' + (el.tagName === 'DD' ? ' ₽' : ''); });
+      requestAnimationFrame(step);
+    };
+    var seePrices = function () {
+      var r = $('.pcard', prices).getBoundingClientRect();
+      if (r.top < window.innerHeight * .7 && r.bottom > window.innerHeight * .25) run();
+    };
+    if ('IntersectionObserver' in window) new IntersectionObserver(seePrices, { threshold: [0, .3] }).observe($('.pcard', prices));
+    window.addEventListener('scroll', seePrices, { passive: true });
+    seePrices();
   }
 
   /* ---------- первый экран: один сценарий «сеть пропала — дом на батарее» ---------- */
