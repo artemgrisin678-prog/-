@@ -774,8 +774,8 @@ main > .section:last-child { padding-bottom: 120px; }
   border: 1px solid var(--line); color: var(--muted); transition: background .5s, color .5s, border-color .5s;
 }
 .fear__q { position: relative; display: inline-block; font-size: 24px; line-height: 1.2; letter-spacing: -.015em; font-weight: 700; color: var(--text); transition: color .6s; }
-.fear__q span { background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 55% / 0 3px; transition: background-size .8s cubic-bezier(.65, 0, .2, 1); }
-.fear__a { max-height: 0; overflow: hidden; opacity: 0; margin-top: 0; font-size: 16px; line-height: 1.5; color: var(--text-2); transition: max-height .7s ease, opacity .6s ease .15s, margin .6s ease; }
+.fear__q span { background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 55% / 0 3px; transition: background-size 1.9s cubic-bezier(.45, 0, .25, 1); }
+.fear__a { max-height: 0; overflow: hidden; opacity: 0; margin-top: 0; font-size: 16px; line-height: 1.5; color: var(--text-2); transition: max-height 1s ease 1.2s, opacity .9s ease 1.4s, margin 1s ease 1.2s; }
 .fear.is-done .fear__q { color: var(--muted); }
 .fear.is-done .fear__q span { background-size: 100% 3px; }
 .fear.is-done .fear__a { max-height: 120px; opacity: 1; margin-top: 10px; }
@@ -797,8 +797,8 @@ main > .section:last-child { padding-bottom: 120px; }
 .clauses { margin: 22px 0 0; border-top: 1px solid rgba(26, 29, 34, .15); }
 .clause { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; padding: 13px 0; border-bottom: 1px solid rgba(26, 29, 34, .12); font-size: 15px; line-height: 1.35; color: #7A7C80; transition: color .5s; }
 .clause svg { color: #B9BBBE; transition: color .5s; }
-.clause__ring { stroke-dasharray: 63; stroke-dashoffset: 63; transition: stroke-dashoffset .7s ease; }
-.clause__tick { stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset .5s ease .45s; }
+.clause__ring { stroke-dasharray: 63; stroke-dashoffset: 63; transition: stroke-dashoffset 1s ease 1.2s; }
+.clause__tick { stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset .6s ease 2s; }
 .clause.is-done { color: #1A1D22; font-weight: 600; }
 .clause.is-done svg { color: #1F7A46; }
 .clause.is-done .clause__ring, .clause.is-done .clause__tick { stroke-dashoffset: 0; }

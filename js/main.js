@@ -533,9 +533,9 @@
       if (reduced) { markDone(fears.length); doc.classList.add('is-in', 'is-signed'); return; }
       doc.classList.add('is-in');
       for (var i = 0; i < fears.length; i++) {
-        (function (n) { timers.push(setTimeout(function () { markDone(n + 1); }, 900 + n * 1500)); })(i);
+        (function (n) { timers.push(setTimeout(function () { markDone(n + 1); }, 900 + n * 3600)); })(i);
       }
-      timers.push(setTimeout(function () { doc.classList.add('is-signed'); }, 900 + fears.length * 1500));
+      timers.push(setTimeout(function () { doc.classList.add('is-signed'); }, 900 + fears.length * 3600));
     };
     fears.forEach(function (f, i) {
       var on = function () { f.classList.add('is-hot'); clauses[i].classList.add('is-hot'); };
