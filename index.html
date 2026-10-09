@@ -631,6 +631,101 @@
   </div>
 </section>
 
+<!-- ============ БЛОК 7 — ОБЪЕКТЫ ============ -->
+<!-- TODO: кейсы иллюстративные (фото присланы заказчиком, места и параметры придуманы по просьбе); заменить на реальные объекты с подтверждёнными данными -->
+<section class="section section--cases" id="projects" data-cases>
+  <div class="container">
+    <h2 class="section__title">
+      <span class="muted">Резерв уже работает —</span>
+      в домах Подмосковья
+    </h2>
+
+    <div class="cases">
+      <ul class="ctabs" role="tablist" aria-label="Объекты">
+        <li><button class="ctab is-active" type="button" data-case="0" aria-selected="true">
+          <span class="ctab__place">Одинцовский округ</span>
+          <b>Загородный дом 420 м²</b>
+          <span class="ctab__spec">15 кВт · 15 кВт·ч</span>
+          <i class="ctab__bar" aria-hidden="true"></i>
+        </button></li>
+        <li><button class="ctab" type="button" data-case="1" aria-selected="false">
+          <span class="ctab__place">Истринский район</span>
+          <b>Дом с гаражом и мастерской</b>
+          <span class="ctab__spec">20 кВт · 30 кВт·ч</span>
+          <i class="ctab__bar" aria-hidden="true"></i>
+        </button></li>
+        <li><button class="ctab" type="button" data-case="2" aria-selected="false">
+          <span class="ctab__place">Дмитровский округ</span>
+          <b>Дом в коттеджном посёлке</b>
+          <span class="ctab__spec">15 кВт · 10 кВт·ч</span>
+          <i class="ctab__bar" aria-hidden="true"></i>
+        </button></li>
+      </ul>
+      <div class="cstage" data-cstage>
+        <article class="case is-active" data-case-view="0" aria-hidden="false">
+          <img src="assets/case-1.jpg" alt="Система ИБП в техническом помещении рядом с котельной и коллектором отопления" width="1000" height="1000">
+          <i class="case__shade" aria-hidden="true"></i>
+          <div class="case__panel">
+            <p class="case__place">Одинцовский округ, загородный дом 420 м²</p>
+            <dl class="case__nums">
+              <div><dt>Мощность</dt><dd>15<small>кВт</small></dd></div>
+              <div><dt>Ёмкость АКБ</dt><dd>15<small>кВт·ч</small></dd></div>
+              <div><dt>Автономная работа</dt><dd>до 10<small>ч</small></dd></div>
+            </dl>
+            <div class="case__txt">
+              <p><b>Задача</b>Котёл, циркуляционные насосы и скважина должны работать при отключениях, которые в посёлке длятся по несколько часов.</p>
+              <p><b>Решение</b>Инвертор 15 кВт, два модуля АКБ, автомат ввода резерва в общем щите. Установлено в техническом помещении рядом с котельной.</p>
+              <p><b>Резервируем</b>Котельная, насосы, скважина, освещение</p>
+            </div>
+          </div>
+        </article>
+        <article class="case" data-case-view="1" aria-hidden="true">
+          <img src="assets/case-2.jpg" alt="Два инвертора, щит и шкаф АКБ на стене гаража" width="1000" height="1000">
+          <i class="case__shade" aria-hidden="true"></i>
+          <div class="case__panel">
+            <p class="case__place">Истринский район, дом с гаражом и мастерской</p>
+            <dl class="case__nums">
+              <div><dt>Мощность</dt><dd>20<small>кВт</small></dd></div>
+              <div><dt>Ёмкость АКБ</dt><dd>30<small>кВт·ч</small></dd></div>
+              <div><dt>Автономная работа</dt><dd>до 12<small>ч</small></dd></div>
+            </dl>
+            <div class="case__txt">
+              <p><b>Задача</b>Нужен резерв для всего дома, зарядки электромобиля и мастерской без ограничений по одновременной нагрузке.</p>
+              <p><b>Решение</b>Два инвертора, шкаф АКБ на три модуля, распределительный щит и кабельные короба. Размещено в гараже у въезда.</p>
+              <p><b>Резервируем</b>Весь дом, зарядка авто, мастерская</p>
+            </div>
+          </div>
+        </article>
+        <article class="case" data-case-view="2" aria-hidden="true">
+          <img src="assets/case-3.jpg" alt="Щит, инвертор и АКБ в небольшой технической комнате" width="1000" height="1000">
+          <i class="case__shade" aria-hidden="true"></i>
+          <div class="case__panel">
+            <p class="case__place">Дмитровский округ, дом в коттеджном посёлке</p>
+            <dl class="case__nums">
+              <div><dt>Мощность</dt><dd>15<small>кВт</small></dd></div>
+              <div><dt>Ёмкость АКБ</dt><dd>10<small>кВт·ч</small></dd></div>
+              <div><dt>Автономная работа</dt><dd>до 8<small>ч</small></dd></div>
+            </dl>
+            <div class="case__txt">
+              <p><b>Задача</b>Резерв для связи, охраны, холодильного оборудования и климата на время отключений в зимний период.</p>
+              <p><b>Решение</b>Инвертор на стене, стойка АКБ на полу, отдельный щит. Выделенная техническая комната без вмешательства в интерьер.</p>
+              <p><b>Резервируем</b>Связь, охрана, климат, кухня</p>
+            </div>
+          </div>
+        </article>
+        <div class="cstage__ctrl">
+          <button class="ctrl ctrl--light" type="button" data-cmove="-1" aria-label="Предыдущий объект"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <button class="ctrl ctrl--light" type="button" data-cmove="1" aria-label="Следующий объект"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cases__cta">
+      <a class="btn-pill" href="#quiz"><span>Рассчитать для похожего объекта</span><span class="btn-pill__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <!-- липкая кнопка на телефоне -->

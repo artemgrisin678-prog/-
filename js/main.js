@@ -129,7 +129,7 @@
   if (sticky && heroBtn) {
     var update = function () {
       // прячем, пока на экране есть своя кнопка или сам опрос
-      sticky.classList.toggle('is-visible', !inView(heroBtn) && !inView(quizBox) && !inView($('.pcard__cta .btn-pill')));
+      sticky.classList.toggle('is-visible', !inView(heroBtn) && !inView(quizBox) && !inView($('.pcard__cta .btn-pill')) && !inView($('.cases__cta .btn-pill')));
     };
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
@@ -463,6 +463,59 @@
     if ('IntersectionObserver' in window) new IntersectionObserver(seePrices, { threshold: [0, .3] }).observe($('.pcard', prices));
     window.addEventListener('scroll', seePrices, { passive: true });
     seePrices();
+  }
+
+  /* ---------- «Объекты»: кейсы переключаются сами каждые 6 секунд и руками ---------- */
+  var casesBox = $('[data-cases]');
+  if (casesBox) {
+    var CASE_MS = 6000;
+    var tabs = $$('.ctab', casesBox), views = $$('.case', casesBox), cstage = $('[data-cstage]', casesBox);
+    var curCase = 0, caseTimer = null, caseSeen = false, caseHover = false;
+    casesBox.style.setProperty('--case-ms', CASE_MS + 'ms');
+    var showCase = function (n) {
+      if (n === curCase) return;
+      views.forEach(function (v, i) {
+        v.classList.remove('is-prev');
+        if (i === curCase) v.classList.add('is-prev');
+        v.classList.toggle('is-active', i === n);
+        v.setAttribute('aria-hidden', i === n ? 'false' : 'true');
+      });
+      curCase = n;
+      restartBars();
+    };
+    var restartBars = function () {
+      tabs.forEach(function (t, i) {
+        t.classList.remove('is-active'); t.setAttribute('aria-selected', 'false');
+      });
+      void casesBox.offsetWidth; // перезапуск полосы прогресса
+      tabs[curCase].classList.add('is-active'); tabs[curCase].setAttribute('aria-selected', 'true');
+    };
+    var stopCase = function () { if (caseTimer) { clearInterval(caseTimer); caseTimer = null; } };
+    var playCase = function () {
+      stopCase();
+      if (reduced || !caseSeen || caseHover) return;
+      caseTimer = setInterval(function () { showCase((curCase + 1) % views.length); }, CASE_MS);
+    };
+    tabs.forEach(function (t, i) { t.addEventListener('click', function () { showCase(i); playCase(); }); });
+    $$('[data-cmove]', casesBox).forEach(function (b) {
+      b.addEventListener('click', function () { showCase((curCase + parseInt(b.getAttribute('data-cmove'), 10) + views.length) % views.length); playCase(); });
+    });
+    [cstage, $('.ctabs', casesBox)].forEach(function (el) {
+      el.addEventListener('mouseenter', function () { caseHover = true; stopCase(); });
+      el.addEventListener('mouseleave', function () { caseHover = false; playCase(); });
+    });
+    casesBox.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { showCase((curCase + 1) % views.length); playCase(); }
+      if (e.key === 'ArrowLeft') { showCase((curCase - 1 + views.length) % views.length); playCase(); }
+    });
+    var seeCases = function () {
+      var r = casesBox.getBoundingClientRect();
+      var v = r.top < window.innerHeight * .65 && r.bottom > window.innerHeight * .3;
+      if (v !== caseSeen) { caseSeen = v; playCase(); }
+    };
+    if ('IntersectionObserver' in window) new IntersectionObserver(seeCases, { threshold: [0, .3, .6] }).observe(casesBox);
+    window.addEventListener('scroll', seeCases, { passive: true });
+    seeCases();
   }
 
   /* ---------- первый экран: один сценарий «сеть пропала — дом на батарее» ---------- */
