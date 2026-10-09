@@ -129,7 +129,7 @@
   if (sticky && heroBtn) {
     var update = function () {
       // прячем, пока на экране есть своя кнопка или сам опрос
-      sticky.classList.toggle('is-visible', !inView(heroBtn) && !inView(quizBox) && !inView($('.pcard__cta .btn-pill')) && !inView($('.cases__cta .btn-pill')));
+      sticky.classList.toggle('is-visible', !inView(heroBtn) && !inView(quizBox) && !inView($('.pcard__cta .btn-pill')) && !inView($('.cases__cta .btn-pill')) && !inView($('.trust-sec__cta .btn-pill')));
     };
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
@@ -516,6 +516,40 @@
     if ('IntersectionObserver' in window) new IntersectionObserver(seeCases, { threshold: [0, .3, .6] }).observe(casesBox);
     window.addEventListener('scroll', seeCases, { passive: true });
     seeCases();
+  }
+
+  /* ---------- «Причины доверять»: страхи закрываются пунктами договора, лист подписывается ---------- */
+  var trust = $('[data-trust]');
+  if (trust) {
+    var fears = $$('.fear', trust), clauses = $$('.clause', trust), doc = $('[data-doc]', trust);
+    $$('.sig__p', trust).forEach(function (p) { p.setAttribute('pathLength', '1'); });
+    var markDone = function (n) {
+      fears.forEach(function (f, i) { f.classList.toggle('is-done', i < n); });
+      clauses.forEach(function (c, i) { c.classList.toggle('is-done', i < n); });
+    };
+    var playedTrust = false, timers = [];
+    var playTrust = function () {
+      if (playedTrust) return; playedTrust = true;
+      if (reduced) { markDone(fears.length); doc.classList.add('is-in', 'is-signed'); return; }
+      doc.classList.add('is-in');
+      for (var i = 0; i < fears.length; i++) {
+        (function (n) { timers.push(setTimeout(function () { markDone(n + 1); }, 900 + n * 1500)); })(i);
+      }
+      timers.push(setTimeout(function () { doc.classList.add('is-signed'); }, 900 + fears.length * 1500));
+    };
+    fears.forEach(function (f, i) {
+      var on = function () { f.classList.add('is-hot'); clauses[i].classList.add('is-hot'); };
+      var off = function () { f.classList.remove('is-hot'); clauses[i].classList.remove('is-hot'); };
+      f.addEventListener('mouseenter', on); f.addEventListener('mouseleave', off);
+      clauses[i].addEventListener('mouseenter', on); clauses[i].addEventListener('mouseleave', off);
+    });
+    var seeTrust = function () {
+      var r = $('.tgrid', trust).getBoundingClientRect();
+      if (r.top < window.innerHeight * .7 && r.bottom > window.innerHeight * .3) playTrust();
+    };
+    if ('IntersectionObserver' in window) new IntersectionObserver(seeTrust, { threshold: [0, .3] }).observe($('.tgrid', trust));
+    window.addEventListener('scroll', seeTrust, { passive: true });
+    seeTrust();
   }
 
   /* ---------- первый экран: один сценарий «сеть пропала — дом на батарее» ---------- */
