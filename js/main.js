@@ -518,30 +518,42 @@
     seeCases();
   }
 
-  /* ---------- «Причины доверять»: страхи закрываются пунктами договора, лист подписывается ---------- */
+  /* ---------- «Причины доверять»: страхи закрываются пунктами договора, лист листается и подписывается ---------- */
   var trust = $('[data-trust]');
   if (trust) {
-    var fears = $$('.fear', trust), clauses = $$('.clause', trust), doc = $('[data-doc]', trust);
+    var fears = $$('.fear', trust), keys = $$('.key', trust), doc = $('[data-doc]', trust), sheet = $('[data-doc-scroll]', trust);
     $$('.sig__p', trust).forEach(function (p) { p.setAttribute('pathLength', '1'); });
     var markDone = function (n) {
       fears.forEach(function (f, i) { f.classList.toggle('is-done', i < n); });
-      clauses.forEach(function (c, i) { c.classList.toggle('is-done', i < n); });
+      keys.forEach(function (k, i) { k.classList.toggle('is-done', i < n); });
     };
-    var playedTrust = false, timers = [];
+    var playedTrust = false, timers = [], userTook = false;
+    var toKey = function (el) {
+      if (userTook) return;
+      sheet.scrollTo({ top: Math.max(0, el.offsetTop - 70), behavior: 'smooth' });
+    };
+    ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function (ev) {
+      sheet.addEventListener(ev, function () { userTook = true; }, { passive: true });
+    });
     var playTrust = function () {
       if (playedTrust) return; playedTrust = true;
       if (reduced) { markDone(fears.length); doc.classList.add('is-in', 'is-signed'); return; }
       doc.classList.add('is-in');
       for (var i = 0; i < fears.length; i++) {
-        (function (n) { timers.push(setTimeout(function () { markDone(n + 1); }, 900 + n * 3600)); })(i);
+        (function (n) {
+          timers.push(setTimeout(function () { toKey(keys[n]); }, 900 + n * 3600 - 500));
+          timers.push(setTimeout(function () { markDone(n + 1); }, 900 + n * 3600 + 500));
+        })(i);
       }
-      timers.push(setTimeout(function () { doc.classList.add('is-signed'); }, 900 + fears.length * 3600));
+      var endAt = 900 + fears.length * 3600;
+      timers.push(setTimeout(function () { if (!userTook) sheet.scrollTo({ top: sheet.scrollHeight, behavior: 'smooth' }); }, endAt - 1200));
+      timers.push(setTimeout(function () { doc.classList.add('is-signed'); }, endAt + 600));
     };
     fears.forEach(function (f, i) {
-      var on = function () { f.classList.add('is-hot'); clauses[i].classList.add('is-hot'); };
-      var off = function () { f.classList.remove('is-hot'); clauses[i].classList.remove('is-hot'); };
+      var on = function () { f.classList.add('is-hot'); if (keys[i]) keys[i].classList.add('is-hot'); };
+      var off = function () { f.classList.remove('is-hot'); if (keys[i]) keys[i].classList.remove('is-hot'); };
       f.addEventListener('mouseenter', on); f.addEventListener('mouseleave', off);
-      clauses[i].addEventListener('mouseenter', on); clauses[i].addEventListener('mouseleave', off);
+      f.addEventListener('click', function () { if (f.classList.contains('is-done') && keys[i]) { userTook = false; toKey(keys[i]); } });
     });
     var seeTrust = function () {
       var r = $('.tgrid', trust).getBoundingClientRect();
